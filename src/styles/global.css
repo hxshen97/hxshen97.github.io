@@ -1,0 +1,92 @@
+/* src/styles/global.css */
+
+/* ── Design Tokens ─────────────────────────────── */
+:root {
+  --bg:          #0a0a0f;
+  --bg-surface:  #111827;
+  --border:      #1e293b;
+  --text:        #e2e8f0;
+  --text-muted:  #94a3b8;
+  --accent-1:    #10b981;
+  --accent-2:    #3b82f6;
+  --gradient:    linear-gradient(135deg, #10b981, #3b82f6);
+  --sidebar-w:   220px;
+  --radius:      6px;
+  --font-sans:   'Inter', system-ui, sans-serif;
+  --font-mono:   'JetBrains Mono', monospace;
+}
+
+/* ── Reset ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ──────────────────────────────────────── */
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-1);
+  text-decoration: none;
+}
+a:hover { color: var(--accent-2); }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+pre {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+
+/* ── Utilities ─────────────────────────────────── */
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tag {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--accent-1);
+  font-size: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  border-color: var(--accent-1);
+  box-shadow: -3px 0 0 0 var(--accent-1);
+}
+
+/* ── KaTeX ─────────────────────────────────────── */
+.katex { font-size: 1.05em; }
+.katex-display { overflow-x: auto; padding: 0.5rem 0; }
