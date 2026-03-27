@@ -1,0 +1,52 @@
+---
+// src/components/TagFilter.astro
+interface Props {
+  tags: string[];
+}
+const { tags } = Astro.props;
+---
+<div class="tag-filter" id="tag-filter">
+  <button class="filter-btn active" data-tag="all">All</button>
+  {tags.map(t => (
+    <button class="filter-btn" data-tag={t}>{t}</button>
+  ))}
+</div>
+
+<script>
+const filter = document.getElementById('tag-filter')!;
+const buttons = filter.querySelectorAll<HTMLButtonElement>('.filter-btn');
+const cards = document.querySelectorAll<HTMLElement>('.card[data-tags]');
+
+filter.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.filter-btn');
+  if (!btn) return;
+  const tag = btn.dataset.tag!;
+
+  buttons.forEach(b => b.classList.toggle('active', b === btn));
+  cards.forEach(card => {
+    const cardTags = card.dataset.tags?.split(',') ?? [];
+    card.style.display = (tag === 'all' || cardTags.includes(tag)) ? '' : 'none';
+  });
+});
+</script>
+
+<style>
+.tag-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.filter-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.filter-btn:hover { color: var(--text); border-color: var(--text-muted); }
+.filter-btn.active {
+  color: var(--accent-1);
+  border-color: var(--accent-1);
+  background: rgba(16, 185, 129, 0.06);
+}
+</style>
