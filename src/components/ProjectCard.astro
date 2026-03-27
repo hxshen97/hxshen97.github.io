@@ -1,0 +1,36 @@
+---
+// src/components/ProjectCard.astro
+import TagChip from './TagChip.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  repo?: string;
+  demo?: string;
+  slug: string;
+}
+const { title, description, tags, repo, demo, slug } = Astro.props;
+---
+<article class="card project-card" data-tags={tags.join(',')}>
+  <h3><a href={`/projects/${slug}`}>{title}</a></h3>
+  <p class="desc">{description}</p>
+  <div class="tags">
+    {tags.map(t => <TagChip tag={t} />)}
+  </div>
+  <div class="links">
+    {repo && <a href={repo} target="_blank" rel="noopener">GitHub →</a>}
+    {demo && <a href={demo} target="_blank" rel="noopener">Demo →</a>}
+  </div>
+</article>
+
+<style>
+.project-card h3 { margin-bottom: 0.5rem; font-size: 1.05rem; }
+.project-card h3 a { color: var(--text); }
+.project-card h3 a:hover { color: var(--accent-1); }
+.desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+.links { display: flex; gap: 1rem; font-size: 0.85rem; }
+.links a { color: var(--accent-1); }
+.links a:hover { color: var(--accent-2); }
+</style>
