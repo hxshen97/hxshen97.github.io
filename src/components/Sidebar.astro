@@ -136,6 +136,15 @@ sidebar.querySelectorAll('a').forEach(link => {
   border-radius: 2px;
   transition: transform 0.2s, opacity 0.2s;
 }
+.hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
 
 @media (max-width: 768px) {
   .mobile-header { display: flex; }
