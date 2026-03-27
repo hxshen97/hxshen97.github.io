@@ -1,0 +1,48 @@
+---
+// src/pages/contact/index.astro
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Contact" description="Get in touch with HxS.">
+  <h1>Contact</h1>
+  <p class="subtitle">The best way to reach me is by email.</p>
+
+  <div class="contact-list">
+    <a href="mailto:hxs@example.com" class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">hxs@example.com</span>
+    </a>
+    <a href="https://github.com/hxs" target="_blank" rel="noopener" class="contact-item">
+      <span class="contact-label">GitHub</span>
+      <span class="contact-value">github.com/hxs</span>
+    </a>
+    <a href="https://linkedin.com/in/hxs" target="_blank" rel="noopener" class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <span class="contact-value">linkedin.com/in/hxs</span>
+    </a>
+  </div>
+</SidebarLayout>
+
+<style>
+h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.subtitle { color: var(--text-muted); margin-bottom: 2.5rem; }
+
+.contact-list { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; }
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+  color: var(--text);
+}
+.contact-item:hover { border-color: var(--accent-1); color: var(--text); }
+.contact-label {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--accent-1);
+}
+.contact-value { font-size: 0.9rem; color: var(--text-muted); }
+</style>
