@@ -51,6 +51,18 @@ h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 0.5rem; }
 .prose { max-width: 68ch; margin-top: 2rem; }
 .prose :global(p) { margin-bottom: 1.2rem; }
 .prose :global(h2) { font-size: 1.4rem; margin: 2rem 0 0.75rem; }
+.prose :global(h3) { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; }
+.prose :global(ul),
+.prose :global(ol) { margin: 0 0 1.2rem 1.5rem; }
+.prose :global(li) { margin-bottom: 0.3rem; }
+.prose :global(blockquote) {
+  border-left: 3px solid var(--accent-1);
+  padding-left: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+.prose :global(a) { color: var(--accent-1); text-decoration: underline; }
 .prose :global(code:not(pre code)) {
   background: var(--bg-surface);
   border: 1px solid var(--border);
