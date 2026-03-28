@@ -4,6 +4,8 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PostCard from '../components/PostCard.astro';
 import { getCollection } from 'astro:content';
+import { t, type Lang } from '../i18n/ui';
+const lang: Lang = 'en';
 
 const featuredProjects = (await getCollection('projects', ({ data }) => data.featured))
   .slice(0, 3);
@@ -11,19 +13,18 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 4);
 ---
-<SidebarLayout title="Home" description="HxS — Software Engineer & Mathematician">
+<SidebarLayout title="Home" description="HxS — Software Engineer & Mathematician" lang={lang}>
 
   <!-- Hero -->
   <section class="hero">
     <h1><span class="gradient-text">HxS</span></h1>
-    <p class="role">Software Engineer · Mathematics PhD</p>
+    <p class="role">{t(lang, 'home.role')}</p>
     <p class="bio">
-      I build systems and study structure — working at the intersection of
-      computation and mathematics.
+      {t(lang, 'home.bio')}
     </p>
     <div class="cta">
-      <a href="/projects" class="btn btn-primary">View Projects</a>
-      <a href="/blog" class="btn btn-secondary">Read Blog</a>
+      <a href="/projects" class="btn btn-primary">{t(lang, 'home.viewProjects')}</a>
+      <a href="/blog" class="btn btn-secondary">{t(lang, 'home.readBlog')}</a>
     </div>
   </section>
 
@@ -31,8 +32,8 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
   {featuredProjects.length > 0 && (
     <section class="section">
       <div class="section-header">
-        <h2>Featured Projects</h2>
-        <a href="/projects" class="see-all">All projects →</a>
+        <h2>{t(lang, 'home.featuredProjects')}</h2>
+        <a href="/projects" class="see-all">{t(lang, 'home.allProjects')}</a>
       </div>
       <div class="card-grid">
         {featuredProjects.map(p => (
@@ -43,6 +44,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
             repo={p.data.repo}
             demo={p.data.demo}
             slug={p.slug}
+            lang={lang}
           />
         ))}
       </div>
@@ -53,8 +55,8 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
   {recentPosts.length > 0 && (
     <section class="section">
       <div class="section-header">
-        <h2>Recent Posts</h2>
-        <a href="/blog" class="see-all">All posts →</a>
+        <h2>{t(lang, 'home.recentPosts')}</h2>
+        <a href="/blog" class="see-all">{t(lang, 'home.allPosts')}</a>
       </div>
       <div class="card-grid">
         {recentPosts.map(p => (
@@ -64,6 +66,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
             description={p.data.description}
             tags={p.data.tags}
             slug={p.slug}
+            lang={lang}
           />
         ))}
       </div>
@@ -72,7 +75,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
 
   <!-- Contact Strip -->
   <section class="contact-strip">
-    <p>Get in touch</p>
+    <p>{t(lang, 'home.getInTouch')}</p>
     <div class="contact-links">
       <a href="mailto:hxs@example.com">hxs@example.com</a>
       <a href="https://github.com/hxs" target="_blank" rel="noopener">GitHub</a>

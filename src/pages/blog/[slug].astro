@@ -2,6 +2,7 @@
 // src/pages/blog/[slug].astro
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -13,11 +14,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const formatted = post.data.date.toLocaleDateString('en-US', {
+const lang: Lang = 'en';
+const locale = lang === 'zh' ? 'zh-CN' : 'en-US';
+const formatted = post.data.date.toLocaleDateString(locale, {
   year: 'numeric', month: 'long', day: 'numeric',
 });
 ---
-<SidebarLayout title={post.data.title} description={post.data.description}>
+<SidebarLayout title={post.data.title} description={post.data.description} lang={lang}>
   <article class="post">
     <header>
       <div class="tags">

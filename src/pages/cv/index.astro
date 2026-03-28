@@ -1,15 +1,17 @@
 ---
 // src/pages/cv/index.astro
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import { t, type Lang } from '../../i18n/ui';
+const lang: Lang = 'en';
 ---
-<SidebarLayout title="CV" description="Curriculum vitae of HxS.">
+<SidebarLayout title={t(lang, 'cv.title')} description="Curriculum vitae of HxS." lang={lang}>
   <div class="cv-header">
-    <h1>Curriculum Vitae</h1>
-    <a href="/cv.pdf" download class="btn-download">Download PDF →</a>
+    <h1>{t(lang, 'cv.title')}</h1>
+    <a href="/cv.pdf" download class="btn-download">{t(lang, 'cv.download')}</a>
   </div>
 
   <section class="cv-section">
-    <h2>Education</h2>
+    <h2>{t(lang, 'cv.education')}</h2>
     <div class="cv-entry">
       <div class="cv-entry-header">
         <strong>PhD, Mathematics</strong>
@@ -28,7 +30,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </section>
 
   <section class="cv-section">
-    <h2>Experience</h2>
+    <h2>{t(lang, 'cv.experience')}</h2>
     <div class="cv-entry">
       <div class="cv-entry-header">
         <strong>Software Engineer</strong>
@@ -40,7 +42,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </section>
 
   <section class="cv-section">
-    <h2>Skills</h2>
+    <h2>{t(lang, 'cv.skills')}</h2>
     <div class="skills-grid">
       <div>
         <span class="skills-label">Languages</span>

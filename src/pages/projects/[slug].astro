@@ -2,6 +2,7 @@
 // src/pages/projects/[slug].astro
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -13,8 +14,9 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
+const lang: Lang = 'en';
 ---
-<SidebarLayout title={project.data.title} description={project.data.description}>
+<SidebarLayout title={project.data.title} description={project.data.description} lang={lang}>
   <article class="project">
     <header>
       <div class="tags">
