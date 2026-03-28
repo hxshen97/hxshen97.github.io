@@ -1,0 +1,128 @@
+---
+// src/pages/zh/cv/index.astro
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import { t, type Lang } from '../../../i18n/ui';
+const lang: Lang = 'zh';
+---
+<SidebarLayout title={t(lang, 'cv.title')} description="HxS 的个人简历。" lang={lang}>
+  <div class="cv-header">
+    <h1>{t(lang, 'cv.title')}</h1>
+    <a href="/cv.pdf" download class="btn-download">{t(lang, 'cv.download')}</a>
+  </div>
+
+  <section class="cv-section">
+    <h2>{t(lang, 'cv.education')}</h2>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>PhD, Mathematics</strong>
+        <span class="cv-date">2022 – present</span>
+      </div>
+      <div class="cv-entry-sub">University Name</div>
+      <p>Research focus: your research area here.</p>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>BSc, Computer Science &amp; Mathematics</strong>
+        <span class="cv-date">2018 – 2022</span>
+      </div>
+      <div class="cv-entry-sub">University Name</div>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>{t(lang, 'cv.experience')}</h2>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>Software Engineer</strong>
+        <span class="cv-date">2022 – present</span>
+      </div>
+      <div class="cv-entry-sub">Company / Institution</div>
+      <p>Description of role and responsibilities.</p>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>{t(lang, 'cv.skills')}</h2>
+    <div class="skills-grid">
+      <div>
+        <span class="skills-label">Languages</span>
+        Python, TypeScript, C++, Haskell
+      </div>
+      <div>
+        <span class="skills-label">Mathematics</span>
+        Analysis, Algebra, Probability, Numerical Methods
+      </div>
+      <div>
+        <span class="skills-label">Tools</span>
+        Git, Linux, LaTeX, SciPy, PyTorch
+      </div>
+    </div>
+  </section>
+</SidebarLayout>
+
+<style>
+.cv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+h1 { font-size: 2rem; }
+
+.btn-download {
+  padding: 0.5rem 1.2rem;
+  background: var(--gradient);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.btn-download:hover { opacity: 0.85; color: #fff; }
+
+.cv-section { margin-bottom: 2.5rem; }
+.cv-section h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-1);
+  font-family: var(--font-mono);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cv-entry {
+  margin-bottom: 1.25rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+}
+.cv-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+.cv-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.cv-entry-sub {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+.cv-entry p { font-size: 0.9rem; color: var(--text-muted); }
+
+.skills-grid { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem; }
+.skills-label {
+  font-family: var(--font-mono);
+  color: var(--accent-1);
+  font-size: 0.8rem;
+  margin-right: 0.75rem;
+}
+</style>

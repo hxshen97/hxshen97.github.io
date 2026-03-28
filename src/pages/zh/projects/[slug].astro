@@ -1,0 +1,75 @@
+---
+// src/pages/zh/projects/[slug].astro
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(p => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const lang: Lang = 'zh';
+---
+<SidebarLayout title={project.data.title} description={project.data.description} lang={lang}>
+  <article class="project">
+    <header>
+      <div class="tags">
+        {project.data.tags.map(t => <span class="tag">{t}</span>)}
+      </div>
+      <h1>{project.data.title}</h1>
+      <p class="desc">{project.data.description}</p>
+      <div class="links">
+        {project.data.repo && (
+          <a href={project.data.repo} target="_blank" rel="noopener">GitHub →</a>
+        )}
+        {project.data.demo && (
+          <a href={project.data.demo} target="_blank" rel="noopener">Demo →</a>
+        )}
+      </div>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</SidebarLayout>
+
+<style>
+.project header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+}
+.tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 0.5rem; }
+.desc { color: var(--text-muted); margin-bottom: 1rem; }
+.links { display: flex; gap: 1.5rem; }
+.links a { color: var(--accent-1); font-size: 0.9rem; }
+.prose { max-width: 68ch; margin-top: 2rem; }
+.prose :global(p) { margin-bottom: 1.2rem; }
+.prose :global(h2) { font-size: 1.4rem; margin: 2rem 0 0.75rem; }
+.prose :global(h3) { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; }
+.prose :global(ul),
+.prose :global(ol) { margin: 0 0 1.2rem 1.5rem; }
+.prose :global(li) { margin-bottom: 0.3rem; }
+.prose :global(blockquote) {
+  border-left: 3px solid var(--accent-1);
+  padding-left: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+.prose :global(a) { color: var(--accent-1); text-decoration: underline; }
+.prose :global(code:not(pre code)) {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.875em;
+}
+</style>

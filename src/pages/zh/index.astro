@@ -1,0 +1,163 @@
+---
+// src/pages/zh/index.astro
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { t, localizedPath, type Lang } from '../../i18n/ui';
+const lang: Lang = 'zh';
+
+const featuredProjects = (await getCollection('projects', ({ data }) => data.featured))
+  .slice(0, 3);
+const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4);
+---
+<SidebarLayout title="首页" description="HxS — 软件工程师与数学家" lang={lang}>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1><span class="gradient-text">HxS</span></h1>
+    <p class="role">{t(lang, 'home.role')}</p>
+    <p class="bio">
+      {t(lang, 'home.bio')}
+    </p>
+    <div class="cta">
+      <a href={localizedPath('/projects', lang)} class="btn btn-primary">{t(lang, 'home.viewProjects')}</a>
+      <a href={localizedPath('/blog', lang)} class="btn btn-secondary">{t(lang, 'home.readBlog')}</a>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  {featuredProjects.length > 0 && (
+    <section class="section">
+      <div class="section-header">
+        <h2>{t(lang, 'home.featuredProjects')}</h2>
+        <a href={localizedPath('/projects', lang)} class="see-all">{t(lang, 'home.allProjects')}</a>
+      </div>
+      <div class="card-grid">
+        {featuredProjects.map(p => (
+          <ProjectCard
+            title={p.data.title}
+            description={p.data.description}
+            tags={p.data.tags}
+            repo={p.data.repo}
+            demo={p.data.demo}
+            slug={p.slug}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Recent Posts -->
+  {recentPosts.length > 0 && (
+    <section class="section">
+      <div class="section-header">
+        <h2>{t(lang, 'home.recentPosts')}</h2>
+        <a href={localizedPath('/blog', lang)} class="see-all">{t(lang, 'home.allPosts')}</a>
+      </div>
+      <div class="card-grid">
+        {recentPosts.map(p => (
+          <PostCard
+            title={p.data.title}
+            date={p.data.date}
+            description={p.data.description}
+            tags={p.data.tags}
+            slug={p.slug}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Contact Strip -->
+  <section class="contact-strip">
+    <p>{t(lang, 'home.getInTouch')}</p>
+    <div class="contact-links">
+      <a href="mailto:hxs@example.com">hxs@example.com</a>
+      <a href="https://github.com/hxs" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+</SidebarLayout>
+
+<style>
+/* Hero */
+.hero { padding: 2rem 0 3.5rem; }
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+}
+.role {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: 1rem;
+}
+.bio {
+  font-size: 1.05rem;
+  max-width: 520px;
+  color: var(--text-muted);
+  margin-bottom: 1.75rem;
+}
+.cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn-primary {
+  background: var(--gradient);
+  color: #fff;
+}
+.btn-primary:hover { opacity: 0.85; color: #fff; }
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-secondary:hover { border-color: var(--accent-1); color: var(--accent-1); }
+
+/* Sections */
+.section { margin-bottom: 3.5rem; }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.25rem;
+}
+.section-header h2 { font-size: 1.15rem; }
+.see-all { font-size: 0.85rem; color: var(--accent-1); }
+.see-all:hover { color: var(--accent-2); }
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Contact strip */
+.contact-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 2rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.contact-links { display: flex; gap: 1.5rem; }
+.contact-links a { color: var(--accent-1); }
+</style>
