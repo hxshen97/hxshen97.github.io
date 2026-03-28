@@ -11,7 +11,7 @@ const { en: enPath, zh: zhPath } = langSwitchPaths(Astro.url.pathname);
 ---
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-top">
-    <a href={lang === 'zh' ? '/zh' : '/'} class="logo">
+    <a href={lang === 'zh' ? '/zh/' : '/'} class="logo">
       <span class="gradient-text">HxS</span>
     </a>
     <p class="tagline">{t(lang, 'sidebar.tagline')}</p>
@@ -48,7 +48,7 @@ const { en: enPath, zh: zhPath } = langSwitchPaths(Astro.url.pathname);
 
 <!-- Mobile top bar -->
 <header class="mobile-header">
-  <a href={lang === 'zh' ? '/zh' : '/'} class="logo gradient-text">HxS</a>
+  <a href={lang === 'zh' ? '/zh/' : '/'} class="logo gradient-text">HxS</a>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
