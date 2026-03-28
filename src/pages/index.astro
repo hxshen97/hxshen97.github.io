@@ -23,8 +23,8 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
       {t(lang, 'home.bio')}
     </p>
     <div class="cta">
-      <a href="/projects" class="btn btn-primary">{t(lang, 'home.viewProjects')}</a>
-      <a href="/blog" class="btn btn-secondary">{t(lang, 'home.readBlog')}</a>
+      <a href="/projects/" class="btn btn-primary">{t(lang, 'home.viewProjects')}</a>
+      <a href="/blog/" class="btn btn-secondary">{t(lang, 'home.readBlog')}</a>
     </div>
   </section>
 
@@ -33,7 +33,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
     <section class="section">
       <div class="section-header">
         <h2>{t(lang, 'home.featuredProjects')}</h2>
-        <a href="/projects" class="see-all">{t(lang, 'home.allProjects')}</a>
+        <a href="/projects/" class="see-all">{t(lang, 'home.allProjects')}</a>
       </div>
       <div class="card-grid">
         {featuredProjects.map(p => (
@@ -56,7 +56,7 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
     <section class="section">
       <div class="section-header">
         <h2>{t(lang, 'home.recentPosts')}</h2>
-        <a href="/blog" class="see-all">{t(lang, 'home.allPosts')}</a>
+        <a href="/blog/" class="see-all">{t(lang, 'home.allPosts')}</a>
       </div>
       <div class="card-grid">
         {recentPosts.map(p => (

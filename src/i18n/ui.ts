@@ -75,8 +75,13 @@ export function t(lang: Lang, key: string): string {
   return ui[lang][key] ?? ui[defaultLang][key] ?? key;
 }
 
+function ensureTrailingSlash(p: string): string {
+  return p.endsWith("/") ? p : `${p}/`;
+}
+
 export function localizedPath(path: string, lang: Lang): string {
-  return lang === defaultLang ? path : `/zh${path}`;
+  const p = lang === defaultLang ? path : `/zh${path}`;
+  return ensureTrailingSlash(p);
 }
 
 /**
@@ -85,5 +90,8 @@ export function localizedPath(path: string, lang: Lang): string {
  */
 export function langSwitchPaths(pathname: string): { en: string; zh: string } {
   const base = pathname.startsWith("/zh") ? pathname.replace(/^\/zh/, "") || "/" : pathname;
-  return { en: base, zh: `/zh${base === "/" ? "" : base}` };
+  return {
+    en: ensureTrailingSlash(base),
+    zh: ensureTrailingSlash(`/zh${base === "/" ? "" : base}`),
+  };
 }
