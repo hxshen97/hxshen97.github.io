@@ -1,14 +1,17 @@
 ---
 // src/components/TagFilter.astro
+import { t, type Lang } from '../i18n/ui';
+
 interface Props {
   tags: string[];
+  lang?: Lang;
 }
-const { tags } = Astro.props;
+const { tags, lang = 'en' } = Astro.props;
 ---
 <div class="tag-filter" id="tag-filter">
-  <button class="filter-btn active" data-tag="all">All</button>
-  {tags.map(t => (
-    <button class="filter-btn" data-tag={t}>{t}</button>
+  <button class="filter-btn active" data-tag="all">{t(lang, 'filter.all')}</button>
+  {tags.map(tag => (
+    <button class="filter-btn" data-tag={tag}>{tag}</button>
   ))}
 </div>
 

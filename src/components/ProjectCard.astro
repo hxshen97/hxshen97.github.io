@@ -1,6 +1,7 @@
 ---
 // src/components/ProjectCard.astro
 import TagChip from './TagChip.astro';
+import { localizedPath, type Lang } from '../i18n/ui';
 
 interface Props {
   title: string;
@@ -9,11 +10,12 @@ interface Props {
   repo?: string;
   demo?: string;
   slug: string;
+  lang?: Lang;
 }
-const { title, description, tags, repo, demo, slug } = Astro.props;
+const { title, description, tags, repo, demo, slug, lang = 'en' } = Astro.props;
 ---
 <article class="card project-card" data-tags={tags.join(',')}>
-  <h3><a href={`/projects/${slug}`}>{title}</a></h3>
+  <h3><a href={localizedPath(`/projects/${slug}`, lang)}>{title}</a></h3>
   <p class="desc">{description}</p>
   <div class="tags">
     {tags.map(t => <TagChip tag={t} />)}

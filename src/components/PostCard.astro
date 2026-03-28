@@ -1,6 +1,7 @@
 ---
 // src/components/PostCard.astro
 import TagChip from './TagChip.astro';
+import { localizedPath, type Lang } from '../i18n/ui';
 
 interface Props {
   title: string;
@@ -8,15 +9,17 @@ interface Props {
   description: string;
   tags: string[];
   slug: string;
+  lang?: Lang;
 }
-const { title, date, description, tags, slug } = Astro.props;
-const formatted = date.toLocaleDateString('en-US', {
+const { title, date, description, tags, slug, lang = 'en' } = Astro.props;
+const locale = lang === 'zh' ? 'zh-CN' : 'en-US';
+const formatted = date.toLocaleDateString(locale, {
   year: 'numeric', month: 'short', day: 'numeric',
 });
 ---
 <article class="card post-card" data-tags={tags.join(',')}>
   <time class="date" datetime={date.toISOString()}>{formatted}</time>
-  <h3><a href={`/blog/${slug}`}>{title}</a></h3>
+  <h3><a href={localizedPath(`/blog/${slug}`, lang)}>{title}</a></h3>
   <p class="desc">{description}</p>
   <div class="tags">
     {tags.map(t => <TagChip tag={t} />)}
