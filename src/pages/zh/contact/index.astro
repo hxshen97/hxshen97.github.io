@@ -4,22 +4,22 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
 import { t, type Lang } from '../../../i18n/ui';
 const lang: Lang = 'zh';
 ---
-<SidebarLayout title={t(lang, 'contact.title')} description="联系 HxS。" lang={lang}>
+<SidebarLayout title={t(lang, 'contact.title')} description="联系我。" lang={lang}>
   <h1>{t(lang, 'contact.title')}</h1>
   <p class="subtitle">{t(lang, 'contact.subtitle')}</p>
 
   <div class="contact-list">
-    <a href="mailto:hxs@example.com" class="contact-item">
-      <span class="contact-label">Email</span>
-      <span class="contact-value">hxs@example.com</span>
+    <a href="mailto:hxshen97_fdu@outlook.com" class="contact-item">
+      <span class="contact-label">邮件</span>
+      <span class="contact-value">hxshen97_fdu@outlook.com</span>
     </a>
-    <a href="https://github.com/hxs" target="_blank" rel="noopener" class="contact-item">
+    <a href="https://github.com/hxshen97" target="_blank" rel="noopener" class="contact-item">
       <span class="contact-label">GitHub</span>
-      <span class="contact-value">github.com/hxs</span>
+      <span class="contact-value">github.com/hxshen97</span>
     </a>
-    <a href="https://linkedin.com/in/hxs" target="_blank" rel="noopener" class="contact-item">
-      <span class="contact-label">LinkedIn</span>
-      <span class="contact-value">linkedin.com/in/hxs</span>
+    <a href="https://linkedin.com/in/瀚翔-沈-991176310" target="_blank" rel="noopener" class="contact-item">
+      <span class="contact-label">领英</span>
+      <span class="contact-value">https://linkedin.com/in/瀚翔-沈-991176310</span>
     </a>
   </div>
 </SidebarLayout>
@@ -43,7 +43,8 @@ h1 { font-size: 2rem; margin-bottom: 0.5rem; }
 .contact-item:hover { border-color: var(--accent-1); color: var(--text); }
 .contact-label {
   font-size: 0.8rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-weight: 600;
   color: var(--accent-1);
 }
 .contact-value { font-size: 0.9rem; color: var(--text-muted); }

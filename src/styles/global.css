@@ -12,7 +12,7 @@
   --gradient:    linear-gradient(135deg, #10b981, #3b82f6);
   --sidebar-w:   220px;
   --radius:      6px;
-  --font-sans:   'Inter', system-ui, sans-serif;
+  --font-sans:   'Inter', 'Noto Sans SC', system-ui, sans-serif;
   --font-mono:   'JetBrains Mono', monospace;
 }
 
@@ -75,6 +75,10 @@ pre {
   font-family: var(--font-mono);
 }
 
+.tagline {
+  white-space: pre-line;
+}
+
 .card {
   background: var(--bg-surface);
   border: 1px solid var(--border);
@@ -85,6 +89,16 @@ pre {
 .card:hover {
   border-color: var(--accent-1);
   box-shadow: -3px 0 0 0 var(--accent-1);
+}
+
+/* ── Chinese font overrides ───────────────────── */
+html[lang="zh"] .tag,
+html[lang="zh"] .filter-btn,
+html[lang="zh"] .lang-switch,
+html[lang="zh"] .cv-section h2,
+html[lang="zh"] .cv-date,
+html[lang="zh"] .skills-label {
+  font-family: var(--font-sans);
 }
 
 /* ── KaTeX ─────────────────────────────────────── */

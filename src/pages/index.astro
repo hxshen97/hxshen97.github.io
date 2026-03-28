@@ -13,11 +13,11 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 4);
 ---
-<SidebarLayout title="Home" description="HxS — Software Engineer & Mathematician" lang={lang}>
+<SidebarLayout title="Home" description="Hanxiang Shen" lang={lang}>
 
   <!-- Hero -->
   <section class="hero">
-    <h1><span class="gradient-text">HxS</span></h1>
+    <h1><span class="gradient-text">Hanxiang Shen</span></h1>
     <p class="role">{t(lang, 'home.role')}</p>
     <p class="bio">
       {t(lang, 'home.bio')}
@@ -77,8 +77,8 @@ const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
   <section class="contact-strip">
     <p>{t(lang, 'home.getInTouch')}</p>
     <div class="contact-links">
-      <a href="mailto:hxs@example.com">hxs@example.com</a>
-      <a href="https://github.com/hxs" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hxshen_fdu@outlook.com">Email</a>
+      <a href="https://github.com/hxshen97" target="_blank" rel="noopener">GitHub</a>
     </div>
   </section>
 
