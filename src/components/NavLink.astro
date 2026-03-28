@@ -1,14 +1,19 @@
 ---
 // src/components/NavLink.astro
+import { localizedPath, type Lang } from '../i18n/ui';
+
 interface Props {
   href: string;
   label: string;
+  lang?: Lang;
 }
-const { href, label } = Astro.props;
-const isActive = Astro.url.pathname === href ||
-  (href !== '/' && Astro.url.pathname.startsWith(href + '/'));
+const { href, label, lang = 'en' } = Astro.props;
+const localHref = localizedPath(href, lang);
+const pathname = Astro.url.pathname;
+const isActive = pathname === localHref ||
+  (localHref !== '/' && localHref !== '/zh' && pathname.startsWith(localHref + '/'));
 ---
-<a href={href} class:list={['nav-link', { active: isActive }]}>
+<a href={localHref} class:list={['nav-link', { active: isActive }]}>
   {label}
 </a>
 
