@@ -1,0 +1,39 @@
+---
+// src/pages/zh/blog/index.astro
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import TagFilter from '../../../components/TagFilter.astro';
+import { getCollection } from 'astro:content';
+import { t, type Lang } from '../../../i18n/ui';
+const lang: Lang = 'zh';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
+---
+<SidebarLayout title={t(lang, 'blog.title')} description={t(lang, 'blog.subtitle')} lang={lang}>
+  <h1>{t(lang, 'blog.title')}</h1>
+  <p class="subtitle">{t(lang, 'blog.subtitle')}</p>
+
+  <TagFilter tags={allTags} lang={lang} />
+
+  <div class="card-grid">
+    {posts.map(p => (
+      <PostCard
+        title={p.data.title}
+        date={p.data.date}
+        description={p.data.description}
+        tags={p.data.tags}
+        slug={p.slug}
+        lang={lang}
+      />
+    ))}
+  </div>
+</SidebarLayout>
+
+<style>
+h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.subtitle { color: var(--text-muted); margin-bottom: 2rem; }
+.card-grid { display: grid; gap: 1rem; }
+</style>

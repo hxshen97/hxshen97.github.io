@@ -1,0 +1,81 @@
+---
+// src/pages/zh/publications/index.astro
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import { getCollection } from 'astro:content';
+import { t, type Lang } from '../../../i18n/ui';
+const lang: Lang = 'zh';
+
+const pubs = await getCollection('publications');
+
+// Group by year, descending
+const byYear = pubs.reduce<Record<number, typeof pubs>>((acc, p) => {
+  (acc[p.data.year] ??= []).push(p);
+  return acc;
+}, {});
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+<SidebarLayout title={t(lang, 'publications.title')} description={t(lang, 'publications.subtitle')} lang={lang}>
+  <h1>{t(lang, 'publications.title')}</h1>
+  <p class="subtitle">{t(lang, 'publications.subtitle')}</p>
+
+  {years.map(year => (
+    <section class="year-group">
+      <h2 class="year-label">{year}</h2>
+      <ul class="pub-list">
+        {byYear[year].map(p => (
+          <li class="pub-item">
+            <div class="pub-title">
+              {p.data.pdf
+                ? <a href={p.data.pdf} target="_blank" rel="noopener">{p.data.title}</a>
+                : p.data.title
+              }
+            </div>
+            <div class="pub-authors">{p.data.authors.join(', ')}</div>
+            <div class="pub-venue">{p.data.venue}</div>
+            {p.data.abstract && (
+              <p class="pub-abstract">{p.data.abstract}</p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</SidebarLayout>
+
+<style>
+h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.subtitle { color: var(--text-muted); margin-bottom: 2.5rem; }
+
+.year-group { margin-bottom: 2.5rem; }
+.year-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-1);
+  font-family: var(--font-mono);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pub-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+.pub-item {
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.2s;
+}
+.pub-item:hover { border-left-color: var(--accent-1); }
+
+.pub-title { font-weight: 600; margin-bottom: 0.2rem; }
+.pub-title a { color: var(--text); }
+.pub-title a:hover { color: var(--accent-1); }
+.pub-authors { font-size: 0.875rem; color: var(--text-muted); }
+.pub-venue { font-size: 0.875rem; color: var(--accent-2); font-style: italic; }
+.pub-abstract {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+  max-width: 68ch;
+}
+</style>
