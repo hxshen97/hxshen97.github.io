@@ -4,15 +4,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import TagFilter from '../../components/TagFilter.astro';
 import { getCollection } from 'astro:content';
+import { t, type Lang } from '../../i18n/ui';
+const lang: Lang = 'en';
 
 const projects = await getCollection('projects');
 const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
 ---
-<SidebarLayout title="Projects" description="Software and research projects by HxS.">
-  <h1>Projects</h1>
-  <p class="subtitle">Software, research tools, and experiments.</p>
+<SidebarLayout title={t(lang, 'projects.title')} description={t(lang, 'projects.subtitle')} lang={lang}>
+  <h1>{t(lang, 'projects.title')}</h1>
+  <p class="subtitle">{t(lang, 'projects.subtitle')}</p>
 
-  <TagFilter tags={allTags} />
+  <TagFilter tags={allTags} lang={lang} />
 
   <div class="card-grid">
     {projects.map(p => (
@@ -23,6 +25,7 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
         repo={p.data.repo}
         demo={p.data.demo}
         slug={p.slug}
+        lang={lang}
       />
     ))}
   </div>

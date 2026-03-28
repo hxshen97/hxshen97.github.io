@@ -1,10 +1,12 @@
 ---
 // src/pages/contact/index.astro
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import { t, type Lang } from '../../i18n/ui';
+const lang: Lang = 'en';
 ---
-<SidebarLayout title="Contact" description="Get in touch with HxS.">
-  <h1>Contact</h1>
-  <p class="subtitle">The best way to reach me is by email.</p>
+<SidebarLayout title={t(lang, 'contact.title')} description="Get in touch with HxS." lang={lang}>
+  <h1>{t(lang, 'contact.title')}</h1>
+  <p class="subtitle">{t(lang, 'contact.subtitle')}</p>
 
   <div class="contact-list">
     <a href="mailto:hxs@example.com" class="contact-item">

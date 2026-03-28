@@ -2,6 +2,8 @@
 // src/pages/publications/index.astro
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 import { getCollection } from 'astro:content';
+import { t, type Lang } from '../../i18n/ui';
+const lang: Lang = 'en';
 
 const pubs = await getCollection('publications');
 
@@ -12,9 +14,9 @@ const byYear = pubs.reduce<Record<number, typeof pubs>>((acc, p) => {
 }, {});
 const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
 ---
-<SidebarLayout title="Publications" description="Research papers and mathematical work by HxS.">
-  <h1>Publications</h1>
-  <p class="subtitle">Papers, theses, and mathematical writing.</p>
+<SidebarLayout title={t(lang, 'publications.title')} description={t(lang, 'publications.subtitle')} lang={lang}>
+  <h1>{t(lang, 'publications.title')}</h1>
+  <p class="subtitle">{t(lang, 'publications.subtitle')}</p>
 
   {years.map(year => (
     <section class="year-group">
