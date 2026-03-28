@@ -1,22 +1,29 @@
 ---
 // src/components/Sidebar.astro
 import NavLink from './NavLink.astro';
+import { t, langSwitchPaths, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const { en: enPath, zh: zhPath } = langSwitchPaths(Astro.url.pathname);
 ---
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-top">
-    <a href="/" class="logo">
+    <a href={lang === 'zh' ? '/zh' : '/'} class="logo">
       <span class="gradient-text">HxS</span>
     </a>
-    <p class="tagline">Software Engineer · Mathematician</p>
+    <p class="tagline">{t(lang, 'sidebar.tagline')}</p>
   </div>
 
   <nav class="sidebar-nav" aria-label="Main navigation">
-    <NavLink href="/" label="About" />
-    <NavLink href="/projects" label="Projects" />
-    <NavLink href="/blog" label="Blog" />
-    <NavLink href="/publications" label="Publications" />
-    <NavLink href="/cv" label="CV" />
-    <NavLink href="/contact" label="Contact" />
+    <NavLink href="/" label={t(lang, 'nav.about')} lang={lang} />
+    <NavLink href="/projects" label={t(lang, 'nav.projects')} lang={lang} />
+    <NavLink href="/blog" label={t(lang, 'nav.blog')} lang={lang} />
+    <NavLink href="/publications" label={t(lang, 'nav.publications')} lang={lang} />
+    <NavLink href="/cv" label={t(lang, 'nav.cv')} lang={lang} />
+    <NavLink href="/contact" label={t(lang, 'nav.contact')} lang={lang} />
   </nav>
 
   <div class="sidebar-footer">
@@ -31,12 +38,17 @@ import NavLink from './NavLink.astro';
         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
       </svg>
     </a>
+    <span class="lang-switch">
+      <a href={enPath} class:list={[lang === 'en' && 'active']}>EN</a>
+      <span class="lang-sep">/</span>
+      <a href={zhPath} class:list={[lang === 'zh' && 'active']}>中文</a>
+    </span>
   </div>
 </aside>
 
 <!-- Mobile top bar -->
 <header class="mobile-header">
-  <a href="/" class="logo gradient-text">HxS</a>
+  <a href={lang === 'zh' ? '/zh' : '/'} class="logo gradient-text">HxS</a>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -49,7 +61,6 @@ btn.addEventListener('click', () => {
   const open = sidebar.classList.toggle('open');
   btn.setAttribute('aria-expanded', String(open));
 });
-// Close sidebar when clicking a nav link on mobile
 sidebar.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => sidebar.classList.remove('open'));
 });
@@ -102,6 +113,22 @@ sidebar.querySelectorAll('a').forEach(link => {
 }
 .sidebar-footer a { color: var(--text-muted); }
 .sidebar-footer a:hover { color: var(--accent-1); }
+
+.lang-switch {
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.lang-switch a {
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.lang-switch a:hover { color: var(--text); }
+.lang-switch a.active { color: var(--accent-1); pointer-events: none; }
+.lang-sep { color: var(--text-muted); font-size: 0.75rem; }
 
 /* Mobile */
 .mobile-header {
