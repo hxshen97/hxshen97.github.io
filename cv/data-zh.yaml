@@ -1,0 +1,49 @@
+contact:
+  name: "沈瀚翔"
+  email: "hxshen_fdu@outlook.com"
+  phone: ""
+  github: "hxshen97"
+  linkedin: ""
+  website: "https://hxshen97.github.io"
+
+labels:
+  education: "教育背景"
+  experience: "工作经历"
+  skills: "专业技能"
+  publications: "发表论文"
+
+summary: >-
+  软件工程师与数学研究者，在数学分析与数值方法方面具有研究经验。
+  擅长 Python、TypeScript、C++ 及科学计算。
+
+education:
+  - title: "数学博士"
+    org: "大学名称"
+    date: "2022 – 至今"
+    description: "研究方向：在此填写你的研究领域。"
+
+  - title: "计算机科学与数学学士"
+    org: "大学名称"
+    date: "2018 – 2022"
+    description: ""
+
+experience:
+  - title: "软件工程师"
+    org: "公司/机构名称"
+    date: "2022 – 至今"
+    description:
+      - "设计并实现了数据处理流水线"
+      - "使用 TypeScript 和现代框架构建 Web 应用"
+
+skills:
+  - label: "编程语言"
+    items: "Python, TypeScript, C++, Haskell"
+  - label: "数学"
+    items: "分析学、代数、概率论、数值方法"
+  - label: "工具"
+    items: "Git, Linux, LaTeX, SciPy, PyTorch"
+
+publications:
+  - title: "论文标题"
+    authors: "沈瀚翔 等"
+    venue: "会议/期刊, 2025"
