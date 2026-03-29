@@ -31,6 +31,7 @@ site: 'https://<your-username>.github.io'
 |:--|:--|:--|
 | Name / initials | `src/components/Sidebar.astro` | Replace `HxS` in the logo `<span>` (appears twice: desktop and mobile) |
 | Tagline & bio | `src/i18n/ui.ts` | Edit `sidebar.tagline`, `home.role`, `home.bio` |
+| Profile photo | `public/profile.jpg` | Replace with your own photo (displayed in homepage hero) |
 | Homepage hero | `src/pages/index.astro` | Name in the `<h1>`, email and GitHub links |
 | Contact links | `src/pages/contact/index.astro` | Email, GitHub, LinkedIn URLs and display text |
 | CV content | `src/pages/cv/index.astro` | Education, experience, and skills sections |
@@ -146,6 +147,7 @@ src/
 └── styles/global.css  # Theme variables & global styles
 public/
 ├── cv.pdf             # Downloadable CV
+├── profile.jpg        # Homepage profile photo
 ├── favicon.ico
 └── favicon.svg
 ```
