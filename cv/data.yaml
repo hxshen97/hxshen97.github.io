@@ -1,0 +1,43 @@
+contact:
+  name: "Hanxiang Shen"
+  email: "hxshen_fdu@outlook.com"
+  phone: ""
+  github: "hxshen97"
+  linkedin: ""
+  website: "https://hxshen97.github.io"
+
+summary: >-
+  Software engineer and mathematician with research experience in mathematical analysis
+  and numerical methods. Skilled in Python, TypeScript, C++, and scientific computing.
+
+education:
+  - title: "PhD, Mathematics"
+    org: "University Name"
+    date: "2022 – present"
+    description: "Research focus: your research area here."
+
+  - title: "BSc, Computer Science & Mathematics"
+    org: "University Name"
+    date: "2018 – 2022"
+    description: ""
+
+experience:
+  - title: "Software Engineer"
+    org: "Company / Institution"
+    date: "2022 – present"
+    description:
+      - "Designed and implemented data processing pipelines"
+      - "Built web applications using TypeScript and modern frameworks"
+
+skills:
+  - label: "Languages"
+    items: "Python, TypeScript, C++, Haskell"
+  - label: "Mathematics"
+    items: "Analysis, Algebra, Probability, Numerical Methods"
+  - label: "Tools"
+    items: "Git, Linux, LaTeX, SciPy, PyTorch"
+
+publications:
+  - title: "Paper Title"
+    authors: "Shen, H. et al."
+    venue: "Conference/Journal, 2025"
