@@ -14,18 +14,19 @@ const lang: Lang = 'zh';
     <h2>{t(lang, 'cv.education')}</h2>
     <div class="cv-entry">
       <div class="cv-entry-header">
-        <strong>PhD, Mathematics</strong>
-        <span class="cv-date">2022 – present</span>
+        <strong>复旦大学 · 计算数学 博士</strong>
+        <span class="cv-date">2019.09 – 2024.07</span>
       </div>
-      <div class="cv-entry-sub">University Name</div>
-      <p>Research focus: your research area here.</p>
+      <div class="cv-entry-sub">上海数学中心</div>
+      <p>研究领域：计算化学中的数值算法，EDA算法</p>
     </div>
     <div class="cv-entry">
       <div class="cv-entry-header">
-        <strong>BSc, Computer Science &amp; Mathematics</strong>
-        <span class="cv-date">2018 – 2022</span>
+        <strong>复旦大学 · 信息与计算科学 本科</strong>
+        <span class="cv-date">2015.09 – 2019.07</span>
       </div>
-      <div class="cv-entry-sub">University Name</div>
+      <div class="cv-entry-sub">数学科学学院</div>
+      <p>GPA：3.6/4.0，专业前10%</p>
     </div>
   </section>
 
@@ -33,11 +34,54 @@ const lang: Lang = 'zh';
     <h2>{t(lang, 'cv.experience')}</h2>
     <div class="cv-entry">
       <div class="cv-entry-header">
-        <strong>Software Engineer</strong>
-        <span class="cv-date">2022 – present</span>
+        <strong>华为海思 · 研发工程师</strong>
+        <span class="cv-date">2024.07 – 至今</span>
       </div>
-      <div class="cv-entry-sub">Company / Institution</div>
-      <p>Description of role and responsibilities.</p>
+      <div class="cv-entry-sub">芯片开发平台部</div>
+      <ul class="cv-list">
+        <li>负责STA工具串扰分析模块的算法预研和C++工程实现，通过公开资料独立推导构建并求解物理模型，在现有基础上将精度从65%提升至85%，实现模块可用目标。</li>
+        <li>从零开始独立负责Glitch功耗优化中电路波形仿真的C++开发，参与解决方案全流程的开发。最终波形仿真模块达成99%精度目标，性能全面超越现有方案。</li>
+      </ul>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>鸿芯微纳 · 研发实习生</strong>
+        <span class="cv-date">2023.06 – 2023.08</span>
+      </div>
+      <ul class="cv-list">
+        <li>参与STA工具的C++开发，熟悉工业软件开发流程，主要负责时序检查模块的后端开发。</li>
+      </ul>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>华为海思 · 算法研发实习生</strong>
+        <span class="cv-date">2023.02 – 2023.05</span>
+      </div>
+      <ul class="cv-list">
+        <li>负责7nm工艺下EDA工具单个特性算法预研，工作内容包含核心数学模型构建和标杆工具逆向研究。合作完成该单点特性的工程交付，追平标杆工具计算精度。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>{t(lang, 'cv.awards')}</h2>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <span>第一届粤港澳大湾区（黄埔）国际算法算例大赛"近似低秩矩阵的奇异值分解与求逆"赛题 —— 三等奖</span>
+        <span class="cv-date">2022.11</span>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <span>第二届先导杯计算应用大奖赛"量子计算"赛题 —— 二等奖</span>
+        <span class="cv-date">2021.10</span>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <span>美国大学生数学建模竞赛 —— Honorable Mention奖</span>
+        <span class="cv-date">2017.01</span>
+      </div>
     </div>
   </section>
 
@@ -45,16 +89,12 @@ const lang: Lang = 'zh';
     <h2>{t(lang, 'cv.skills')}</h2>
     <div class="skills-grid">
       <div>
-        <span class="skills-label">Languages</span>
-        Python, TypeScript, C++, Haskell
+        <span class="skills-label">编程能力</span>
+        工作语言为C++和Python，读书期间主要使用MATLAB
       </div>
       <div>
-        <span class="skills-label">Mathematics</span>
-        Analysis, Algebra, Probability, Numerical Methods
-      </div>
-      <div>
-        <span class="skills-label">Tools</span>
-        Git, Linux, LaTeX, SciPy, PyTorch
+        <span class="skills-label">专业能力</span>
+        擅长数学模型和数值算法分析，研究涉猎领域较为广泛
       </div>
     </div>
   </section>
@@ -117,6 +157,13 @@ h1 { font-size: 2rem; }
   margin-bottom: 0.4rem;
 }
 .cv-entry p { font-size: 0.9rem; color: var(--text-muted); }
+.cv-list {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding-left: 1.2rem;
+  margin: 0;
+}
+.cv-list li { margin-bottom: 0.3rem; }
 
 .skills-grid { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem; }
 .skills-label {

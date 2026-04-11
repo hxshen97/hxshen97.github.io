@@ -31,13 +31,13 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function buildContact(contact) {
+function buildContact(contact, labels) {
+  const l = { email: 'Email', homepage: 'Homepage', linkedin: 'LinkedIn', ...labels };
   const parts = [];
-  if (contact.email) parts.push(`<a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>`);
+  if (contact.email) parts.push(`${l.email}: <a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>`);
   if (contact.phone) parts.push(escapeHtml(contact.phone));
-  if (contact.github) parts.push(`<a href="https://github.com/${escapeHtml(contact.github)}">github.com/${escapeHtml(contact.github)}</a>`);
-  if (contact.linkedin) parts.push(`<a href="https://linkedin.com/in/${escapeHtml(contact.linkedin)}">linkedin.com/in/${escapeHtml(contact.linkedin)}</a>`);
-  if (contact.website) parts.push(`<a href="${escapeHtml(contact.website)}">${escapeHtml(contact.website)}</a>`);
+  if (contact.linkedin) parts.push(`${l.linkedin}: <a href="https://linkedin.com/in/${escapeHtml(contact.linkedin)}">linkedin.com/in/${escapeHtml(contact.linkedin)}</a>`);
+  if (contact.website) parts.push(`${l.homepage}: <a href="${escapeHtml(contact.website)}">${escapeHtml(contact.website)}</a>`);
 
   return `<div class="cv-name">${escapeHtml(contact.name)}</div>
 <div class="cv-contact">${parts.join('<span class="sep">|</span>')}</div>`;
@@ -101,19 +101,40 @@ function buildPublications(title, pubs) {
 </div>`;
 }
 
+function buildAwards(title, awards) {
+  if (!awards || awards.length === 0) return '';
+
+  const items = awards.map(a => {
+    const desc = a.description ? ` — ${escapeHtml(a.description)}` : '';
+    return `<div class="cv-entry">
+  <div class="cv-entry-header">
+    <span class="cv-entry-title">${escapeHtml(a.title)}${desc}</span>
+    <span class="cv-entry-date">${escapeHtml(a.date)}</span>
+  </div>
+</div>`;
+  }).join('\n');
+
+  return `<div class="cv-section">
+  <div class="cv-section-title">${escapeHtml(title)}</div>
+  ${items}
+</div>`;
+}
+
 function buildBody(data) {
   const labels = data.labels || {
     education: 'Education',
     experience: 'Experience',
+    awards: 'Awards',
     skills: 'Skills',
     publications: 'Publications',
   };
 
   return [
-    buildContact(data.contact),
+    buildContact(data.contact, labels),
     buildSummary(data.summary),
     buildEntries(labels.education, data.education),
     buildEntries(labels.experience, data.experience),
+    buildAwards(labels.awards, data.awards),
     buildSkills(labels.skills, data.skills),
     buildPublications(labels.publications, data.publications),
   ].join('\n');
