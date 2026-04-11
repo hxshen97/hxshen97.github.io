@@ -6,38 +6,65 @@ contact:
   linkedin: ""
   website: "https://hxshen97.github.io"
 
-summary: >-
-  Software engineer and mathematician with research experience in mathematical analysis
-  and numerical methods. Skilled in Python, TypeScript, C++, and scientific computing.
-
 education:
-  - title: "PhD, Mathematics"
-    org: "University Name"
-    date: "2022 – present"
-    description: "Research focus: your research area here."
+  - title: "PhD, Computational Mathematics"
+    org: "Fudan University · Shanghai Center for Mathematical Sciences"
+    date: "2019.09 – 2024.07"
+    description: "Research: Numerical algorithms in computational chemistry, EDA algorithms."
 
-  - title: "BSc, Computer Science & Mathematics"
-    org: "University Name"
-    date: "2018 – 2022"
-    description: ""
+  - title: "BSc, Information and Computational Science"
+    org: "Fudan University · School of Mathematical Sciences"
+    date: "2015.09 – 2019.07"
+    description: "GPA: 3.6/4.0, top 10% of major."
 
 experience:
-  - title: "Software Engineer"
-    org: "Company / Institution"
-    date: "2022 – present"
+  - title: "R&D Engineer"
+    org: "HiSilicon (Huawei) · Chip Development Platform"
+    date: "2024.07 – Present"
     description:
-      - "Designed and implemented data processing pipelines"
-      - "Built web applications using TypeScript and modern frameworks"
+      - "Led algorithm research and C++ implementation for STA crosstalk analysis module, independently deriving and solving physical models from public literature, improving accuracy from 65% to 85%."
+      - "Independently developed circuit waveform simulation in C++ for Glitch power optimization from scratch, achieving 99% accuracy and outperforming existing solutions."
+
+  - title: "R&D Intern"
+    org: "Hongxin Microelectronics"
+    date: "2023.06 – 2023.08"
+    description:
+      - "Participated in STA tool C++ development, responsible for timing check module backend development."
+
+  - title: "Algorithm R&D Intern"
+    org: "HiSilicon (Huawei)"
+    date: "2023.02 – 2023.05"
+    description:
+      - "Led algorithm research for a single EDA tool feature at 7nm process node, including core mathematical model construction and benchmark tool reverse engineering. Matched benchmark tool accuracy."
+
+awards:
+  - title: "3rd Prize — 1st GBA (Huangpu) International Algorithm Competition"
+    description: "SVD and Inversion of Approximately Low-Rank Matrices"
+    date: "2022.11"
+
+  - title: "2nd Prize — 2nd Pioneer Cup Computational Application Award"
+    description: "Quantum Computing"
+    date: "2021.10"
+
+  - title: "Honorable Mention — Mathematical Contest in Modeling (MCM)"
+    description: ""
+    date: "2017.01"
 
 skills:
-  - label: "Languages"
-    items: "Python, TypeScript, C++, Haskell"
-  - label: "Mathematics"
-    items: "Analysis, Algebra, Probability, Numerical Methods"
-  - label: "Tools"
-    items: "Git, Linux, LaTeX, SciPy, PyTorch"
+  - label: "Programming"
+    items: "C++, Python, MATLAB"
+  - label: "Expertise"
+    items: "Mathematical modeling, numerical algorithm analysis, EDA/STA tools"
 
 publications:
-  - title: "Paper Title"
-    authors: "Shen, H. et al."
-    venue: "Conference/Journal, 2025"
+  - title: "Weighted Trace-Penalty Minimization for Full Configuration Interaction"
+    authors: "W. Gao, Y. Li, H. Shen"
+    venue: "SIAM Journal on Scientific Computing, 2024"
+
+  - title: "Resource Efficient Boolean Function Solver on Quantum Computer"
+    authors: "X. Li, H. Shen, W. Gao, Y. Li"
+    venue: "Quantum, 2024"
+
+  - title: "Short-term Forecasting of Electric Load Based on Kalman Filter with Elastic Net Method"
+    authors: "Y. J. Tian, H. X. Shen, W. G. Gao"
+    venue: "IOP Conf. Series: Earth and Environmental Science, 2019"

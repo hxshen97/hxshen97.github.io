@@ -14,18 +14,19 @@ const lang: Lang = 'en';
     <h2>{t(lang, 'cv.education')}</h2>
     <div class="cv-entry">
       <div class="cv-entry-header">
-        <strong>PhD, Mathematics</strong>
-        <span class="cv-date">2022 – present</span>
+        <strong>PhD, Computational Mathematics</strong>
+        <span class="cv-date">2019.09 – 2024.07</span>
       </div>
-      <div class="cv-entry-sub">University Name</div>
-      <p>Research focus: your research area here.</p>
+      <div class="cv-entry-sub">Fudan University · Shanghai Center for Mathematical Sciences</div>
+      <p>Research: Numerical algorithms in computational chemistry, EDA algorithms.</p>
     </div>
     <div class="cv-entry">
       <div class="cv-entry-header">
-        <strong>BSc, Computer Science &amp; Mathematics</strong>
-        <span class="cv-date">2018 – 2022</span>
+        <strong>BSc, Information and Computational Science</strong>
+        <span class="cv-date">2015.09 – 2019.07</span>
       </div>
-      <div class="cv-entry-sub">University Name</div>
+      <div class="cv-entry-sub">Fudan University · School of Mathematical Sciences</div>
+      <p>GPA: 3.6/4.0, top 10% of major.</p>
     </div>
   </section>
 
@@ -33,11 +34,56 @@ const lang: Lang = 'en';
     <h2>{t(lang, 'cv.experience')}</h2>
     <div class="cv-entry">
       <div class="cv-entry-header">
-        <strong>Software Engineer</strong>
-        <span class="cv-date">2022 – present</span>
+        <strong>R&D Engineer</strong>
+        <span class="cv-date">2024.07 – Present</span>
       </div>
-      <div class="cv-entry-sub">Company / Institution</div>
-      <p>Description of role and responsibilities.</p>
+      <div class="cv-entry-sub">HiSilicon (Huawei) · Chip Development Platform</div>
+      <ul class="cv-list">
+        <li>Led algorithm research and C++ implementation for STA crosstalk analysis module, independently deriving and solving physical models from public literature, improving accuracy from 65% to 85%.</li>
+        <li>Independently developed circuit waveform simulation in C++ for Glitch power optimization from scratch, achieving 99% accuracy and outperforming existing solutions.</li>
+      </ul>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>R&D Intern</strong>
+        <span class="cv-date">2023.06 – 2023.08</span>
+      </div>
+      <div class="cv-entry-sub">Hongxin Microelectronics</div>
+      <ul class="cv-list">
+        <li>Participated in STA tool C++ development, responsible for timing check module backend development.</li>
+      </ul>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <strong>Algorithm R&D Intern</strong>
+        <span class="cv-date">2023.02 – 2023.05</span>
+      </div>
+      <div class="cv-entry-sub">HiSilicon (Huawei)</div>
+      <ul class="cv-list">
+        <li>Led algorithm research for a single EDA tool feature at 7nm process node, including core mathematical model construction and benchmark tool reverse engineering. Matched benchmark tool accuracy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2>{t(lang, 'cv.awards')}</h2>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <span>3rd Prize — 1st GBA (Huangpu) International Algorithm Competition, "SVD and Inversion of Approximately Low-Rank Matrices"</span>
+        <span class="cv-date">2022.11</span>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <span>2nd Prize — 2nd Pioneer Cup Computational Application Award, "Quantum Computing"</span>
+        <span class="cv-date">2021.10</span>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-entry-header">
+        <span>Honorable Mention — Mathematical Contest in Modeling (MCM)</span>
+        <span class="cv-date">2017.01</span>
+      </div>
     </div>
   </section>
 
@@ -45,16 +91,12 @@ const lang: Lang = 'en';
     <h2>{t(lang, 'cv.skills')}</h2>
     <div class="skills-grid">
       <div>
-        <span class="skills-label">Languages</span>
-        Python, TypeScript, C++, Haskell
+        <span class="skills-label">Programming</span>
+        C++, Python, MATLAB
       </div>
       <div>
-        <span class="skills-label">Mathematics</span>
-        Analysis, Algebra, Probability, Numerical Methods
-      </div>
-      <div>
-        <span class="skills-label">Tools</span>
-        Git, Linux, LaTeX, SciPy, PyTorch
+        <span class="skills-label">Expertise</span>
+        Mathematical modeling, numerical algorithm analysis, EDA/STA tools
       </div>
     </div>
   </section>
@@ -117,6 +159,13 @@ h1 { font-size: 2rem; }
   margin-bottom: 0.4rem;
 }
 .cv-entry p { font-size: 0.9rem; color: var(--text-muted); }
+.cv-list {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding-left: 1.2rem;
+  margin: 0;
+}
+.cv-list li { margin-bottom: 0.3rem; }
 
 .skills-grid { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem; }
 .skills-label {

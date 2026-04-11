@@ -7,43 +7,73 @@ contact:
   website: "https://hxshen97.github.io"
 
 labels:
-  education: "教育背景"
-  experience: "工作经历"
-  skills: "专业技能"
+  education: "教育经历"
+  experience: "工作与实习经历"
+  skills: "个人技能"
   publications: "发表论文"
-
-summary: >-
-  软件工程师与数学研究者，在数学分析与数值方法方面具有研究经验。
-  擅长 Python、TypeScript、C++ 及科学计算。
+  awards: "荣誉奖项"
+  email: "邮箱"
+  homepage: "个人主页"
 
 education:
-  - title: "数学博士"
-    org: "大学名称"
-    date: "2022 – 至今"
-    description: "研究方向：在此填写你的研究领域。"
+  - title: "复旦大学 · 计算数学 博士"
+    org: "上海数学中心"
+    date: "2019.09 – 2024.07"
+    description: "研究领域：计算化学中的数值算法，EDA算法"
 
-  - title: "计算机科学与数学学士"
-    org: "大学名称"
-    date: "2018 – 2022"
-    description: ""
+  - title: "复旦大学 · 信息与计算科学 本科"
+    org: "数学科学学院"
+    date: "2015.09 – 2019.07"
+    description: "GPA：3.6/4.0，专业前10%"
 
 experience:
-  - title: "软件工程师"
-    org: "公司/机构名称"
-    date: "2022 – 至今"
+  - title: "华为海思 · 研发工程师"
+    org: "芯片开发平台部"
+    date: "2024.07 – 至今"
     description:
-      - "设计并实现了数据处理流水线"
-      - "使用 TypeScript 和现代框架构建 Web 应用"
+      - "负责STA工具串扰分析模块的算法预研和C++工程实现，通过公开资料独立推导构建并求解物理模型，在现有基础上将精度从65%提升至85%，实现模块可用目标。"
+      - "从零开始独立负责Glitch功耗优化中电路波形仿真的C++开发，参与解决方案全流程的开发。最终波形仿真模块达成99%精度目标，性能全面超越现有方案。"
+
+  - title: "鸿芯微纳 · 研发实习生"
+    org: ""
+    date: "2023.06 – 2023.08"
+    description:
+      - "参与STA工具的C++开发，熟悉工业软件开发流程，主要负责时序检查模块的后端开发。"
+
+  - title: "华为海思 · 算法研发实习生"
+    org: ""
+    date: "2023.02 – 2023.05"
+    description:
+      - "负责7nm工艺下EDA工具单个特性算法预研，工作内容包含核心数学模型构建和标杆工具逆向研究。合作完成该单点特性的工程交付，追平标杆工具计算精度。"
+
+awards:
+  - title: '第一届粤港澳大湾区（黄埔）国际算法算例大赛"近似低秩矩阵的奇异值分解与求逆"赛题 —— 三等奖'
+    description: ""
+    date: "2022.11"
+
+  - title: '第二届先导杯计算应用大奖赛"量子计算"赛题 —— 二等奖'
+    description: ""
+    date: "2021.10"
+
+  - title: "美国大学生数学建模竞赛 —— Honorable Mention奖"
+    description: ""
+    date: "2017.01"
 
 skills:
-  - label: "编程语言"
-    items: "Python, TypeScript, C++, Haskell"
-  - label: "数学"
-    items: "分析学、代数、概率论、数值方法"
-  - label: "工具"
-    items: "Git, Linux, LaTeX, SciPy, PyTorch"
+  - label: "编程能力"
+    items: "工作语言为C++和Python，读书期间主要使用MATLAB"
+  - label: "自我评价"
+    items: "擅长数学模型和数值算法分析，研究涉猎领域较为广泛"
 
 publications:
-  - title: "论文标题"
-    authors: "沈瀚翔 等"
-    venue: "会议/期刊, 2025"
+  - title: "Weighted Trace-Penalty Minimization for Full Configuration Interaction"
+    authors: "W. Gao, Y. Li, H. Shen"
+    venue: "SIAM Journal on Scientific Computing, 2024"
+
+  - title: "Resource Efficient Boolean Function Solver on Quantum Computer"
+    authors: "X. Li, H. Shen, W. Gao, Y. Li"
+    venue: "Quantum, 2024"
+
+  - title: "Short-term Forecasting of Electric Load Based on Kalman Filter with Elastic Net Method"
+    authors: "Y. J. Tian, H. X. Shen, W. G. Gao"
+    venue: "IOP Conf. Series: Earth and Environmental Science, 2019"
