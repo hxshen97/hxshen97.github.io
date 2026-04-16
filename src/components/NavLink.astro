@@ -21,19 +21,21 @@ const isActive = pathname === localHref ||
 .nav-link {
   display: block;
   padding: 0.4rem 0.75rem;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  border-radius: var(--radius);
-  border-left: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  color: rgba(0, 0, 0, 0.56);
+  font-family: var(--font-text);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: -0.224px;
+  border-radius: 5px;
+  transition: color 0.15s, background 0.15s;
 }
 .nav-link:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
+  color: #1d1d1f;
+  background: rgba(0, 0, 0, 0.04);
+  text-decoration: none;
 }
 .nav-link.active {
-  color: var(--accent-1);
-  border-left-color: var(--accent-1);
-  background: rgba(16, 185, 129, 0.06);
+  color: #1d1d1f;
+  background: rgba(0, 0, 0, 0.06);
 }
 </style>

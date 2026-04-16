@@ -6,12 +6,15 @@ contact:
   linkedin: ""
   website: "https://hxshen97.github.io"
 
+summary: "华为海思研发工程师，复旦大学计算数学博士。专注于EDA/STA工具中数值算法的设计与C++工程实现，在串扰分析和功耗优化方向取得显著成果。"
+
 labels:
   education: "教育经历"
   experience: "工作与实习经历"
   skills: "个人技能"
   publications: "发表论文"
   awards: "荣誉奖项"
+  summary: "个人简介"
   email: "邮箱"
   homepage: "个人主页"
 
@@ -31,20 +34,20 @@ experience:
     org: "芯片开发平台部"
     date: "2024.07 – 至今"
     description:
-      - "负责STA工具串扰分析模块的算法预研和C++工程实现，通过公开资料独立推导构建并求解物理模型，在现有基础上将精度从65%提升至85%，实现模块可用目标。"
-      - "从零开始独立负责Glitch功耗优化中电路波形仿真的C++开发，参与解决方案全流程的开发。最终波形仿真模块达成99%精度目标，性能全面超越现有方案。"
+      - "设计并实现STA工具串扰分析算法（C++），基于公开文献独立推导物理模型，将分析精度从65%提升至85%，达成模块上线标准。"
+      - "从零构建Glitch功耗优化的电路波形仿真引擎（C++），覆盖模型设计到系统集成全流程；仿真精度达99%（对比golden reference），全面超越原有方案。"
 
   - title: "鸿芯微纳 · 研发实习生"
     org: ""
     date: "2023.06 – 2023.08"
     description:
-      - "参与STA工具的C++开发，熟悉工业软件开发流程，主要负责时序检查模块的后端开发。"
+      - "开发STA工具时序检查模块后端（C++），实现多时钟域下的约束传播与违例检测功能。"
 
   - title: "华为海思 · 算法研发实习生"
     org: ""
     date: "2023.02 – 2023.05"
     description:
-      - "负责7nm工艺下EDA工具单个特性算法预研，工作内容包含核心数学模型构建和标杆工具逆向研究。合作完成该单点特性的工程交付，追平标杆工具计算精度。"
+      - "构建7nm工艺节点下EDA特性的数学模型，逆向分析标杆工具行为以验证精度；交付产品级实现，追平标杆工具计算结果。"
 
 awards:
   - title: '第一届粤港澳大湾区（黄埔）国际算法算例大赛"近似低秩矩阵的奇异值分解与求逆"赛题 —— 三等奖'
@@ -60,20 +63,24 @@ awards:
     date: "2017.01"
 
 skills:
-  - label: "编程能力"
-    items: "工作语言为C++和Python，读书期间主要使用MATLAB"
-  - label: "自我评价"
-    items: "擅长数学模型和数值算法分析，研究涉猎领域较为广泛"
+  - label: "编程语言"
+    items: "C++（主力）、Python、MATLAB"
+  - label: "工具链"
+    items: "Git、Linux、GDB、CMake、Google Test、Valgrind"
+  - label: "EDA领域"
+    items: "静态时序分析、串扰（SI）、功耗分析、SPICE级仿真、Liberty/SDC"
+  - label: "数学基础"
+    items: "数值线性代数、优化、ODE/PDE求解、数学建模"
 
 publications:
   - title: "Weighted Trace-Penalty Minimization for Full Configuration Interaction"
-    authors: "W. Gao, Y. Li, H. Shen"
+    authors: "W. Gao, Y. Li, **H. Shen**"
     venue: "SIAM Journal on Scientific Computing, 2024"
 
   - title: "Resource Efficient Boolean Function Solver on Quantum Computer"
-    authors: "X. Li, H. Shen, W. Gao, Y. Li"
+    authors: "X. Li, **H. Shen**, W. Gao, Y. Li"
     venue: "Quantum, 2024"
 
   - title: "Short-term Forecasting of Electric Load Based on Kalman Filter with Elastic Net Method"
-    authors: "Y. J. Tian, H. X. Shen, W. G. Gao"
+    authors: "Y. J. Tian, **H. X. Shen**, W. G. Gao"
     venue: "IOP Conf. Series: Earth and Environmental Science, 2019"

@@ -6,6 +6,8 @@ contact:
   linkedin: ""
   website: "https://hxshen97.github.io"
 
+summary: "R&D Engineer at HiSilicon with a PhD in Computational Mathematics from Fudan University. Specializing in numerical algorithm design and C++ implementation for EDA/STA tools, with proven results in crosstalk analysis and power optimization."
+
 education:
   - title: "PhD, Computational Mathematics"
     org: "Fudan University · Shanghai Center for Mathematical Sciences"
@@ -22,20 +24,20 @@ experience:
     org: "HiSilicon (Huawei) · Chip Development Platform"
     date: "2024.07 – Present"
     description:
-      - "Led algorithm research and C++ implementation for STA crosstalk analysis module, independently deriving and solving physical models from public literature, improving accuracy from 65% to 85%."
-      - "Independently developed circuit waveform simulation in C++ for Glitch power optimization from scratch, achieving 99% accuracy and outperforming existing solutions."
+      - "Designed and implemented crosstalk analysis algorithms in the STA tool (C++), independently deriving physical models from published literature; raised analysis accuracy from 65% to 85%, meeting module deployment criteria."
+      - "Built a circuit waveform simulation engine from scratch (C++) for Glitch power optimization, covering the full pipeline from model design to integration; achieved 99% accuracy against golden reference, outperforming the prior in-house solution."
 
   - title: "R&D Intern"
     org: "Hongxin Microelectronics"
     date: "2023.06 – 2023.08"
     description:
-      - "Participated in STA tool C++ development, responsible for timing check module backend development."
+      - "Developed timing check module backend in the STA tool (C++), implementing constraint propagation and violation reporting across multiple clock domains."
 
   - title: "Algorithm R&D Intern"
     org: "HiSilicon (Huawei)"
     date: "2023.02 – 2023.05"
     description:
-      - "Led algorithm research for a single EDA tool feature at 7nm process node, including core mathematical model construction and benchmark tool reverse engineering. Matched benchmark tool accuracy."
+      - "Constructed mathematical models for a 7nm-node EDA feature and reverse-engineered benchmark tool behavior to validate accuracy; delivered production-quality implementation matching benchmark results."
 
 awards:
   - title: "3rd Prize — 1st GBA (Huangpu) International Algorithm Competition"
@@ -52,19 +54,23 @@ awards:
 
 skills:
   - label: "Programming"
-    items: "C++, Python, MATLAB"
-  - label: "Expertise"
-    items: "Mathematical modeling, numerical algorithm analysis, EDA/STA tools"
+    items: "C++ (primary), Python, MATLAB"
+  - label: "Tools"
+    items: "Git, Linux, GDB, CMake, Google Test, Valgrind"
+  - label: "EDA Domain"
+    items: "Static Timing Analysis, crosstalk (SI), power analysis, SPICE-level simulation, Liberty/SDC"
+  - label: "Mathematics"
+    items: "Numerical linear algebra, optimization, ODE/PDE solvers, mathematical modeling"
 
 publications:
   - title: "Weighted Trace-Penalty Minimization for Full Configuration Interaction"
-    authors: "W. Gao, Y. Li, H. Shen"
+    authors: "W. Gao, Y. Li, **H. Shen**"
     venue: "SIAM Journal on Scientific Computing, 2024"
 
   - title: "Resource Efficient Boolean Function Solver on Quantum Computer"
-    authors: "X. Li, H. Shen, W. Gao, Y. Li"
+    authors: "X. Li, **H. Shen**, W. Gao, Y. Li"
     venue: "Quantum, 2024"
 
   - title: "Short-term Forecasting of Electric Load Based on Kalman Filter with Elastic Net Method"
-    authors: "Y. J. Tian, H. X. Shen, W. G. Gao"
+    authors: "Y. J. Tian, **H. X. Shen**, W. G. Gao"
     venue: "IOP Conf. Series: Earth and Environmental Science, 2019"

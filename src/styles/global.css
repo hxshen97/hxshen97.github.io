@@ -1,19 +1,40 @@
 /* src/styles/global.css */
 
-/* ── Design Tokens ─────────────────────────────── */
+/* ── Apple Design System Tokens ───────────────── */
 :root {
-  --bg:          #0a0a0f;
-  --bg-surface:  #111827;
-  --border:      #1e293b;
-  --text:        #e2e8f0;
-  --text-muted:  #94a3b8;
-  --accent-1:    #10b981;
-  --accent-2:    #3b82f6;
-  --gradient:    linear-gradient(135deg, #10b981, #3b82f6);
-  --sidebar-w:   220px;
-  --radius:      6px;
-  --font-sans:   'Inter', 'Noto Sans SC', system-ui, sans-serif;
-  --font-mono:   'JetBrains Mono', monospace;
+  /* Backgrounds — light Apple palette */
+  --bg:            #ffffff;
+  --bg-alt:        #f5f5f7;
+  --bg-surface:    #f5f5f7;
+  --bg-surface-2:  #ebebed;
+
+  /* Text */
+  --text:          #1d1d1f;
+  --text-muted:    rgba(0, 0, 0, 0.56);
+
+  /* Interactive — Apple Blue is the ONLY accent */
+  --accent:        #0071e3;
+  --link:          #0066cc;
+
+  /* Surface */
+  --border:        rgba(0, 0, 0, 0.08);
+  --sidebar-w:     220px;
+  --radius:        8px;
+
+  /* Typography */
+  --font-display:  'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', 'Noto Sans SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-text:     'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'Noto Sans SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+
+  /* Shadows */
+  --shadow-card:   rgba(0, 0, 0, 0.08) 0px 2px 12px 0px;
+
+  /* Legacy aliases for other pages */
+  --accent-1:      #0066cc;
+  --accent-2:      #0071e3;
+  --gradient:      linear-gradient(135deg, #0071e3, #2997ff);
+  --font-sans:     var(--font-text);
+  --bg-primary:    #ffffff;
 }
 
 /* ── Reset ─────────────────────────────────────── */
@@ -25,21 +46,25 @@ html { font-size: 16px; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-sans);
-  line-height: 1.7;
+  font-family: var(--font-text);
+  line-height: 1.47;
+  letter-spacing: -0.374px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: var(--accent-1);
+  color: #0066cc;
   text-decoration: none;
+  transition: color 0.2s;
 }
-a:hover { color: var(--accent-2); }
+a:hover { text-decoration: underline; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.28px;
   color: var(--text);
 }
 
@@ -49,7 +74,6 @@ code, pre {
 
 pre {
   background: var(--bg-surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem;
   overflow-x: auto;
@@ -58,21 +82,22 @@ pre {
 
 /* ── Utilities ─────────────────────────────────── */
 .gradient-text {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1d1d1f;
+  -webkit-text-fill-color: #1d1d1f;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
 }
 
 .tag {
   display: inline-block;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: var(--accent-1);
+  background: rgba(0, 113, 227, 0.08);
+  color: #0066cc;
   font-size: 0.75rem;
   padding: 0.15rem 0.6rem;
-  border-radius: 999px;
-  font-family: var(--font-mono);
+  border-radius: 980px;
+  font-family: var(--font-text);
+  letter-spacing: -0.12px;
 }
 
 .tagline {
@@ -81,14 +106,13 @@ pre {
 
 .card {
   background: var(--bg-surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.25rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 1.5rem;
+  transition: background 0.3s, box-shadow 0.3s;
 }
 .card:hover {
-  border-color: var(--accent-1);
-  box-shadow: -3px 0 0 0 var(--accent-1);
+  background: var(--bg-surface-2);
+  box-shadow: var(--shadow-card);
 }
 
 /* ── Chinese font overrides ───────────────────── */
@@ -98,7 +122,7 @@ html[lang="zh"] .lang-switch,
 html[lang="zh"] .cv-section h2,
 html[lang="zh"] .cv-date,
 html[lang="zh"] .skills-label {
-  font-family: var(--font-sans);
+  font-family: var(--font-text);
 }
 
 /* ── KaTeX ─────────────────────────────────────── */
