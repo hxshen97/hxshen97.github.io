@@ -1,6 +1,6 @@
 # Personal Portfolio Site
 
-A minimal, dark-themed portfolio site built with **Astro 5**, TypeScript, and scoped CSS. Supports bilingual UI (English / Chinese), blog with LaTeX math, project showcase, publications list, and CV page.
+A minimal, Apple-inspired light-themed portfolio site built with **Astro 5**, TypeScript, and scoped CSS. Supports bilingual UI (English / Chinese), blog with LaTeX math, project showcase, publications list, and CV page.
 
 ## Quick Start
 
@@ -44,17 +44,18 @@ Edit CSS variables in `src/styles/global.css`:
 
 ```css
 :root {
-  --bg:        #0a0a0f;   /* page background */
-  --bg-surface:#111827;   /* card / surface background */
-  --border:    #1e293b;
-  --text:      #e2e8f0;   /* primary text */
-  --text-muted:#94a3b8;   /* secondary text */
-  --accent-1:  #10b981;   /* green accent */
-  --accent-2:  #3b82f6;   /* blue accent */
-  --sidebar-w: 220px;
-  --radius:    6px;
-  --font-sans: 'Inter';
-  --font-mono: 'JetBrains Mono';
+  --bg:           #ffffff;   /* page background */
+  --bg-alt:       #f5f5f7;   /* alternate background */
+  --bg-surface:   #f5f5f7;   /* card / surface background */
+  --text:         #1d1d1f;   /* primary text */
+  --text-muted:   rgba(0, 0, 0, 0.56);  /* secondary text */
+  --accent:       #0071e3;   /* Apple blue accent */
+  --link:         #0066cc;   /* link color */
+  --sidebar-w:    220px;
+  --radius:       8px;
+  --font-display: 'SF Pro Display', -apple-system, ...;
+  --font-text:    'SF Pro Text', -apple-system, ...;
+  --font-mono:    'JetBrains Mono';
 }
 ```
 

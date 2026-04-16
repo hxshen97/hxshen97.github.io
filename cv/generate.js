@@ -88,11 +88,20 @@ function buildSkills(title, skills) {
 </div>`;
 }
 
+function formatAuthors(authors) {
+  // Convert **Name** to <strong>Name</strong>, escape everything else
+  return authors.replace(/\.$/, '').split(/(\*\*[^*]+\*\*)/).map(part => {
+    const bold = part.match(/^\*\*(.+)\*\*$/);
+    if (bold) return `<strong>${escapeHtml(bold[1])}</strong>`;
+    return escapeHtml(part);
+  }).join('');
+}
+
 function buildPublications(title, pubs) {
   if (!pubs || pubs.length === 0) return '';
 
   const items = pubs.map(p =>
-    `<div class="cv-pub"><span class="cv-pub-title">${escapeHtml(p.title)}</span>. ${escapeHtml(p.authors.replace(/\.$/, ''))}. <span class="cv-pub-venue">${escapeHtml(p.venue)}</span></div>`
+    `<div class="cv-pub"><span class="cv-pub-title">${escapeHtml(p.title)}</span>. ${formatAuthors(p.authors)}. <span class="cv-pub-venue">${escapeHtml(p.venue)}</span></div>`
   ).join('\n');
 
   return `<div class="cv-section">
