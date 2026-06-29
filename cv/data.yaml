@@ -6,7 +6,7 @@ contact:
   linkedin: ""
   website: "https://hxshen97.github.io"
 
-summary: "R&D Engineer at HiSilicon with a PhD in Computational Mathematics from Fudan University. Specializing in numerical algorithm design and C++ implementation for EDA/STA tools, with proven results in crosstalk analysis and power optimization."
+summary: "EDA R&D Engineer at HiSilicon with a PhD in Computational Mathematics from Fudan University. Working on the design and C++ implementation of numerical algorithms for EDA tools, with a focus on timing analysis and power optimization."
 
 education:
   - title: "PhD, Computational Mathematics"
@@ -17,15 +17,16 @@ education:
   - title: "BSc, Information and Computational Science"
     org: "Fudan University · School of Mathematical Sciences"
     date: "2015.09 – 2019.07"
-    description: "GPA: 3.6/4.0, top 10% of major."
 
 experience:
   - title: "R&D Engineer"
     org: "HiSilicon (Huawei) · Chip Development Platform"
     date: "2024.07 – Present"
     description:
-      - "Designed and implemented crosstalk analysis algorithms in the STA tool (C++), independently deriving physical models from published literature; raised analysis accuracy from 65% to 85%, meeting module deployment criteria."
-      - "Built a circuit waveform simulation engine from scratch (C++) for Glitch power optimization, covering the full pipeline from model design to integration; achieved 99% accuracy against golden reference, outperforming the prior in-house solution."
+      - "Engaged in EDA simulation algorithm R&D for physical design, focusing on timing and power domains."
+      - "Primary tech stack: C++ and Tcl. Proficient with STL; capable of independent module-level development and Tcl automation scripting."
+      - "Project 1: Contributed to the SI module algorithm R&D in the in-house timing engine, modeling crosstalk noise and delay in interconnects. Responsible for prototype validation and production deployment of this module, supporting timing analysis accuracy improvements. Gained in-depth understanding of benchmark tool crosstalk modules and SPICE deck tools, developed multiple automated verification scripts."
+      - "Project 2: Contributed to the in-house Glitch Power optimization tool development, responsible for the digital waveform simulation module and core ECO optimization strategy development. Built a solution integrating VCS+PT+Innovus+in-house tools. Achieved power savings in AI core designs."
 
   - title: "R&D Intern"
     org: "Hongxin Microelectronics"
@@ -54,9 +55,7 @@ awards:
 
 skills:
   - label: "Programming"
-    items: "C++ (primary), Python, MATLAB"
-  - label: "Tools"
-    items: "Git, Linux, GDB, CMake, Google Test, Valgrind"
+    items: "C++, Python, MATLAB"
   - label: "EDA Domain"
     items: "Static Timing Analysis, crosstalk (SI), power analysis, SPICE-level simulation, Liberty/SDC"
   - label: "Mathematics"
