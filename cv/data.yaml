@@ -25,8 +25,8 @@ experience:
     description:
       - "Engaged in EDA simulation algorithm R&D for physical design, focusing on timing and power domains."
       - "Primary tech stack: C++ and Tcl. Proficient with STL; capable of independent module-level development and Tcl automation scripting."
-      - "Project 1: Contributed to the SI module algorithm R&D in the in-house timing engine, modeling crosstalk noise and delay in interconnects. Responsible for prototype validation and production deployment of this module, supporting timing analysis accuracy improvements. Gained in-depth understanding of benchmark tool crosstalk modules and SPICE deck tools, developed multiple automated verification scripts."
-      - "Project 2: Contributed to the in-house Glitch Power optimization tool development, responsible for the digital waveform simulation module and core ECO optimization strategy development. Built a solution integrating VCS+PT+Innovus+in-house tools. Achieved power savings in AI core designs."
+      - "Project 1: Contributed to crosstalk module algorithm R&D, modeling crosstalk noise and delay in interconnects. Responsible for prototype validation and production deployment of this module, supporting timing analysis accuracy improvements. Developed automated timing-accuracy verification scripts based on SPICE deck tooling."
+      - "Project 2: Contributed to Glitch Power optimization tool development, responsible for the digital waveform simulation module and core ECO optimization strategy development. Built a waveform + timing + ECO solution. Achieved power savings on real-world designs."
 
   - title: "R&D Intern"
     org: "Hongxin Microelectronics"
@@ -38,7 +38,7 @@ experience:
     org: "HiSilicon (Huawei)"
     date: "2023.02 – 2023.05"
     description:
-      - "Constructed mathematical models for a 7nm-node EDA feature and reverse-engineered benchmark tool behavior to validate accuracy; delivered production-quality implementation matching benchmark results."
+      - "Built mathematical models for timing calculation at advanced process nodes, primarily responsible for on-chip variation algorithm design; delivered production-quality implementation."
 
 awards:
   - title: "3rd Prize — 1st GBA (Huangpu) International Algorithm Competition"
@@ -57,7 +57,7 @@ skills:
   - label: "Programming"
     items: "C++, Python, MATLAB"
   - label: "EDA Domain"
-    items: "Static Timing Analysis, crosstalk (SI), power analysis, SPICE-level simulation, Liberty/SDC"
+    items: "Static Timing Analysis, crosstalk computation, power analysis, glitch power optimization"
   - label: "Mathematics"
     items: "Numerical linear algebra, optimization, ODE/PDE solvers, mathematical modeling"
 

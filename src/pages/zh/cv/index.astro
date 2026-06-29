@@ -26,7 +26,6 @@ const lang: Lang = 'zh';
         <span class="cv-date">2015.09 – 2019.07</span>
       </div>
       <div class="cv-entry-sub">数学科学学院</div>
-      <p>GPA：3.6/4.0，专业前10%</p>
     </div>
   </section>
 
@@ -39,8 +38,10 @@ const lang: Lang = 'zh';
       </div>
       <div class="cv-entry-sub">芯片开发平台部</div>
       <ul class="cv-list">
-        <li>负责STA工具串扰分析模块的算法预研和C++工程实现，通过公开资料独立推导构建并求解物理模型，在现有基础上将精度从65%提升至85%，实现模块可用目标。</li>
-        <li>从零开始独立负责Glitch功耗优化中电路波形仿真的C++开发，参与解决方案全流程的开发。最终波形仿真模块达成99%精度目标，性能全面超越现有方案。</li>
+        <li>负责物理设计领域EDA仿真算法研发工作，业务主要涉及timing和power方向。</li>
+        <li>技术栈主要涵盖C++和Tcl，熟练使用STL，能够独立完成模块级开发任务，编写Tcl自动化脚本。</li>
+        <li>项目一：参与crosstalk模块算法研发，针对互联线串扰噪声及延迟进行建模，负责该模块原型验证和工程落地，支撑时序分析精度提升。基于spice deck工具编写自动化时序精度验证脚本。</li>
+        <li>项目二：参与Glitch Power优化工具开发，负责数字波形仿真模块与核心ECO优化策略开发，构建波形+时序+ECO的解决方案。在真实用例中获得功耗收益。</li>
       </ul>
     </div>
     <div class="cv-entry">
@@ -49,7 +50,7 @@ const lang: Lang = 'zh';
         <span class="cv-date">2023.06 – 2023.08</span>
       </div>
       <ul class="cv-list">
-        <li>参与STA工具的C++开发，熟悉工业软件开发流程，主要负责时序检查模块的后端开发。</li>
+        <li>开发STA工具时序检查模块后端（C++），实现多时钟域下的约束传播与违例检测功能。</li>
       </ul>
     </div>
     <div class="cv-entry">
@@ -58,7 +59,7 @@ const lang: Lang = 'zh';
         <span class="cv-date">2023.02 – 2023.05</span>
       </div>
       <ul class="cv-list">
-        <li>负责7nm工艺下EDA工具单个特性算法预研，工作内容包含核心数学模型构建和标杆工具逆向研究。合作完成该单点特性的工程交付，追平标杆工具计算精度。</li>
+        <li>构建先进工艺节点下时序计算的数学模型，主要负责先进工艺片上误差的算法设计，交付产品级实现。</li>
       </ul>
     </div>
   </section>
@@ -89,12 +90,16 @@ const lang: Lang = 'zh';
     <h2>{t(lang, 'cv.skills')}</h2>
     <div class="skills-grid">
       <div>
-        <span class="skills-label">编程能力</span>
-        工作语言为C++和Python，读书期间主要使用MATLAB
+        <span class="skills-label">编程语言</span>
+        C++、Python、MATLAB
       </div>
       <div>
-        <span class="skills-label">专业能力</span>
-        擅长数学模型和数值算法分析，研究涉猎领域较为广泛
+        <span class="skills-label">EDA领域</span>
+        静态时序分析、串扰计算、功耗分析、毛刺功耗优化
+      </div>
+      <div>
+        <span class="skills-label">数学基础</span>
+        数值线性代数、优化、ODE/PDE求解、数学建模
       </div>
     </div>
   </section>
