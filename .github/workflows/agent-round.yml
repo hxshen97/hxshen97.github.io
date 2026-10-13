@@ -1,0 +1,182 @@
+name: Bounded development round
+on:
+  workflow_call:
+    inputs:
+      attempt:
+        required: true
+        type: number
+      source-sha:
+        required: true
+        type: string
+      previous-source:
+        default: ''
+        type: string
+      previous-attempt:
+        default: 0
+        type: number
+    secrets:
+      OPENAI_API_KEY:
+        required: true
+    outputs:
+      passed:
+        value: ${{ jobs.review.outputs.verdict == 'pass' }}
+
+permissions:
+  contents: read
+env:
+  PUPPETEER_SKIP_DOWNLOAD: 'true'
+
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: master
+          path: trusted
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.source-sha }}
+          path: work
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: task-context
+          path: ${{ runner.temp }}/task-context
+      - if: inputs.previous-source != ''
+        run: node trusted/scripts/automation/prepare-source.mjs work "$RUNNER_TEMP/task-context/context.json" --clear
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: inputs.previous-source != ''
+        with:
+          name: ${{ inputs.previous-source }}
+          path: work
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: inputs.previous-attempt != 0
+        continue-on-error: true
+        with:
+          pattern: round-${{ inputs.previous-attempt }}-feedback*
+          path: work/.automation/feedback
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.14.0
+      - name: Prepare working tree and trusted prompt
+        run: |
+          mkdir -p work/.automation
+          cp "$RUNNER_TEMP/task-context/context.json" work/.automation/context.json
+          node trusted/scripts/automation/prepare-source.mjs work "$RUNNER_TEMP/task-context/context.json"
+          cp trusted/.github/codex/develop.md "$RUNNER_TEMP/develop.md"
+      - run: npm ci
+        working-directory: work
+      - run: npx playwright install --with-deps chromium
+        working-directory: work
+      - uses: openai/codex-action@bdf19a4a223ec2549a3e2274a0cf61556bc07675 # v1.13
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          working-directory: work
+          prompt-file: ${{ runner.temp }}/develop.md
+          sandbox: workspace-write
+          codex-version: '0.162.1'
+          output-file: ${{ runner.temp }}/developer-result.md
+      # Only artifact transport follows Codex; no generated code executes in this job afterward.
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: source-${{ inputs.attempt }}
+          include-hidden-files: true
+          path: |
+            work/
+            !work/.git/
+            !work/node_modules/
+            !work/.automation/
+            !work/.tools/
+            !work/.astro/
+            !work/dist/
+            !work/test-results/
+            !work/playwright-report/
+            !work/.env*
+          retention-days: 7
+  validate:
+    needs: develop
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: master
+          path: trusted
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: source-${{ inputs.attempt }}
+          path: work
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: task-context
+          path: ${{ runner.temp }}/task-context
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.14.0
+      - name: Enforce trusted acceptance gates
+        run: |
+          node trusted/scripts/automation/validate-source.mjs work "$RUNNER_TEMP/task-context/context.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: round-${{ inputs.attempt }}-feedback-validation
+          include-hidden-files: true
+          path: |
+            work/.automation/validation.log
+            work/playwright-report/
+            work/test-results/
+          retention-days: 14
+  review:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      verdict: ${{ fromJSON(steps.review.outputs.final-message).verdict == 'pass' && toJSON(fromJSON(steps.review.outputs.final-message).findings) == '[]' && 'pass' || 'changes_requested' }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: master
+          path: trusted
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: source-${{ inputs.attempt }}
+          path: work
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: task-context
+          path: work/.automation
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: round-${{ inputs.attempt }}-feedback-validation
+          path: work/.automation/feedback
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.14.0
+      - name: Prepare review evidence
+        run: |
+          node trusted/scripts/automation/prepare-source.mjs work work/.automation/context.json --initialize
+          cp trusted/.github/codex/review.md "$RUNNER_TEMP/review.md"
+          cp trusted/.github/codex/review.schema.json "$RUNNER_TEMP/review.schema.json"
+      - uses: openai/codex-action@bdf19a4a223ec2549a3e2274a0cf61556bc07675 # v1.13
+        id: review
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          working-directory: work
+          prompt-file: ${{ runner.temp }}/review.md
+          sandbox: read-only
+          codex-version: '0.162.1'
+          output-schema-file: ${{ runner.temp }}/review.schema.json
+          output-file: ${{ runner.temp }}/review.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: round-${{ inputs.attempt }}-feedback-review
+          path: ${{ runner.temp }}/review.json
+          retention-days: 14

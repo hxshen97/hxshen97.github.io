@@ -1,0 +1,30 @@
+{
+  "capturedFrom": "515d8087f48a8246b76acf90a6c2c43f80ea672b",
+  "files": {
+    "src/content/projects/homepage.md": "bc8af435792ee09c6352c957cf6bfca97fa5a5e901314cb0a4a20758244c46bd",
+    "src/content/publications/boolean-solver-quantum.md": "4ad06833b3607c4470e286b3a9f2e760d077b8d2b555f72c7fdb4490e78ded60",
+    "src/content/publications/kalman-filter-elastic-net.md": "a9363ec51a34d3cbb7f54a26eb5cd3955a35e3244d4ca5198d39610c537a361f",
+    "src/content/publications/wtpm-fci.md": "67220c3b9adff52b591656e03482952ee27db27049f274a10ee2e843ecbeed99",
+    "cv/data.yaml": "133c15950a6cc8545474a0a68567d400df02436e3e076aea2b4da9fc62a732d2",
+    "cv/data-zh.yaml": "60a49817aeed47b3d757d22196b454197fe98ffa02c8814b4d7d3a14284151e6",
+    "public/cv.pdf": "89aa512efc83eca9c9e0dcd65b30ad0ee4d12e239b8a6820ca34e57467ac8750",
+    "public/cv-zh.pdf": "ebd51be0388b10d2145b2daf4bdac82e4c7d3429c20f0a15b1b5f0bbe457057e",
+    "public/profile.jpg": "f03d02db23ffdd2da46bb0f11984b6883bada9b6c8cc38b4d7df2f1b03db5588"
+  },
+  "projectSlugs": [
+    "homepage"
+  ],
+  "publications": [
+    "Resource Efficient Boolean Function Solver on Quantum Computer",
+    "Short-term Forecasting of Electric Load Based on Kalman Filter with Elastic Net Method",
+    "Weighted Trace-Penalty Minimization for Full Configuration Interaction"
+  ],
+  "contacts": {
+    "en": [
+      "mailto:hxshen_fdu@outlook.com"
+    ],
+    "zh": [
+      "mailto:hxshen97_fdu@outlook.com"
+    ]
+  }
+}

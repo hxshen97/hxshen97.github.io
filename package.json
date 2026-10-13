@@ -10,7 +10,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "cv": "node cv/generate.js"
+    "cv": "node cv/generate.js",
+    "check": "astro check",
+    "test": "node --experimental-strip-types --test tests/unit/*.test.mjs",
+    "test:integrity": "node scripts/check-integrity.mjs",
+    "test:blog": "node scripts/test-blog.mjs",
+    "test:e2e": "playwright test",
+    "verify": "npm run check && npm test && npm run build && npm run test:integrity && npm run test:blog && npm run test:e2e"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -20,6 +26,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^22.20.5",
     "js-yaml": "^4.1.1",
     "puppeteer": "^24.40.0"
   }

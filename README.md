@@ -11,7 +11,21 @@ npm run build        # Build to ./dist/
 npm run preview      # Preview production build locally
 ```
 
-## Deployment
+## Automated development
+
+See [AGENTS.md](AGENTS.md) for repository rules and [docs/automation.md](docs/automation.md) for one-time GitHub App/secrets/branch protection setup. After setup, submit an owner-created `[需求]` issue; automation produces a plan, code, test evidence and a PR. Only owner approval of the current commit permits automatic merge and deployment.
+
+Local acceptance (Node version is pinned in `.nvmrc`):
+
+```bash
+npm ci
+npx playwright install chromium
+npm run verify
+```
+
+CI requires the `quality` and `browser` checks. Secrets are never stored in the repository. The initial infrastructure PR does not itself provision credentials or enable branch protection.
+
+## GitHub Pages deployment
 
 Deploys automatically to GitHub Pages via GitHub Actions on push to `master`.
 
