@@ -12,4 +12,4 @@
 
 ## 审批
 
-由 hxshen97 审批当前提交。新提交使旧审批失效；仅在 quality / browser 均通过且分支保护生效时允许自动合入 master。
+由 hxshen97 在 Codex 聊天审批此 PR 的当前提交。记录供审批的 PR 编号及 head SHA；新提交使旧审批失效。代理核对 quality / browser、最新 head 和未解决的修改请求后，通过 GitHub 工具以 expected_head_sha 条件合入 master。现有分支保护必须遵守。

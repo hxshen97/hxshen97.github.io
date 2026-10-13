@@ -3,6 +3,9 @@ import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { client, paginate } from './github.mjs';
 
+const config = JSON.parse(readFileSync(new URL('../../.github/automation.json', import.meta.url), 'utf8'));
+if (config.mode !== 'api') throw new Error('Legacy App publisher is disabled. Create PRs through the connected GitHub tools in subscription mode.');
+
 const context = JSON.parse(readFileSync(process.env.CONTEXT_FILE, 'utf8'));
 const work = process.env.WORK_DIRECTORY;
 const passed = process.env.PASSED === 'true';
