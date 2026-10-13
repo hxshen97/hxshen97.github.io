@@ -1,0 +1,16 @@
+name: 自动开发需求
+description: 提出需求；代理自动生成方案、开发、验证并提交 PR。
+title: "[需求] "
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: 原始需求
+      description: 描述想解决的问题或期望效果，无需给出实现方案。
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 补充约束（可选）
+      description: 例如视觉参考、必须保留的内容、期望验收结果。

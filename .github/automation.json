@@ -1,0 +1,7 @@
+{
+  "repository": "hxshen97/hxshen97.github.io",
+  "baseBranch": "master",
+  "approver": "hxshen97",
+  "maxAttempts": 3,
+  "requiredChecks": ["quality", "browser"]
+}

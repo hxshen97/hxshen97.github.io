@@ -1,0 +1,123 @@
+name: Agent development
+on:
+  issues:
+    types: [opened, edited, reopened]
+  pull_request_review:
+    types: [submitted]
+  workflow_dispatch:
+    inputs:
+      requirement:
+        description: 原始需求
+        required: true
+        type: string
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+concurrency:
+  group: agent-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+jobs:
+  intake:
+    if: github.actor == 'hxshen97' && (github.event_name != 'pull_request_review' || github.event.review.state == 'changes_requested')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      accepted: ${{ steps.intake.outputs.accepted }}
+      source_sha: ${{ steps.intake.outputs.source_sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: master
+          persist-credentials: false
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        id: intake
+        with:
+          script: |
+            const intake = require('./scripts/automation/intake.cjs');
+            await intake({github, context, core});
+      - name: Check one-time credentials
+        if: steps.intake.outputs.accepted == 'true'
+        env:
+          HAS_OPENAI: ${{ secrets.OPENAI_API_KEY != '' }}
+          HAS_APP_KEY: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY != '' }}
+          APP_ID: ${{ vars.AUTOMATION_APP_ID }}
+        run: |
+          test "$HAS_OPENAI" = true && test "$HAS_APP_KEY" = true && test -n "$APP_ID" || {
+            echo 'Configure OPENAI_API_KEY, AUTOMATION_APP_PRIVATE_KEY and AUTOMATION_APP_ID. Never paste secrets into issues.'
+            exit 1
+          }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: steps.intake.outputs.accepted == 'true'
+        with:
+          name: task-context
+          path: .automation/context.json
+          retention-days: 7
+  round1:
+    needs: intake
+    if: needs.intake.outputs.accepted == 'true'
+    uses: ./.github/workflows/agent-round.yml
+    with:
+      attempt: 1
+      source-sha: ${{ needs.intake.outputs.source_sha }}
+    secrets:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  round2:
+    needs: [intake, round1]
+    if: always() && needs.intake.result == 'success' && needs.intake.outputs.accepted == 'true' && needs.round1.outputs.passed != 'true'
+    uses: ./.github/workflows/agent-round.yml
+    with:
+      attempt: 2
+      source-sha: ${{ needs.intake.outputs.source_sha }}
+      previous-source: source-1
+      previous-attempt: 1
+    secrets:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  round3:
+    needs: [intake, round1, round2]
+    if: always() && needs.intake.result == 'success' && needs.intake.outputs.accepted == 'true' && needs.round1.outputs.passed != 'true' && needs.round2.outputs.passed != 'true'
+    uses: ./.github/workflows/agent-round.yml
+    with:
+      attempt: 3
+      source-sha: ${{ needs.intake.outputs.source_sha }}
+      previous-source: source-2
+      previous-attempt: 2
+    secrets:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  publish:
+    needs: [intake, round1, round2, round3]
+    if: always() && needs.intake.result == 'success' && needs.intake.outputs.accepted == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: master
+          path: trusted
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: task-context
+          path: ${{ runner.temp }}/task-context
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ needs.round3.result != 'skipped' && 'source-3' || needs.round2.result != 'skipped' && 'source-2' || 'source-1' }}
+          path: work
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.14.0
+      - run: node trusted/scripts/automation/prepare-source.mjs work "$RUNNER_TEMP/task-context/context.json" --initialize
+      - uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        id: app
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Push only the task branch and open PR
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          CONTEXT_FILE: ${{ runner.temp }}/task-context/context.json
+          WORK_DIRECTORY: work
+          PASSED: ${{ needs.round1.outputs.passed == 'true' || needs.round2.outputs.passed == 'true' || needs.round3.outputs.passed == 'true' }}
+        run: node trusted/scripts/automation/publish.mjs
