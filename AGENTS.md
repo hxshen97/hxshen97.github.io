@@ -14,7 +14,7 @@
 | 相关项目 | `/projects/` | `/zh/projects/` | 项目列表、详情页、标签筛选、仓库 / 演示链接、精选标记 |
 | 博客文章 | `/blog/` | `/zh/blog/` | 文章列表与详情、日期排序、标签筛选、草稿过滤、Markdown 与 LaTeX 数学公式 |
 | 学术成果 | `/publications/` | `/zh/publications/` | 标题、作者、发表渠道、年份、标签及可选论文链接、摘要 |
-| 个人求职简历 | `/cv/` | `/zh/cv/` | 教育、工作经历、荣誉、技能及现有其他内容；英文和中文 PDF 下载 |
+| 个人求职简历 | `/cv/` | `/zh/cv/` | 教育、工作经历、荣誉、技能及现有其他网页内容；不提供 PDF 下载 |
 | 联系方式 | `/contact/` | `/zh/contact/` | 现有邮箱及社交 / 外部链接、侧栏联系入口 |
 
 - 保留已有内容文件、静态资源、内容 slug 和双语详情页地址。当前没有文章数据时，也必须保留博客模块与新增文章能力。
@@ -28,7 +28,7 @@
 - 静态输出：`astro.config.mjs` 使用 `output: 'static'`、`trailingSlash: 'always'`。
 - 内容集合：`src/content.config.ts` 定义 Zod schema；Markdown 存放在 `src/content/`。
 - 数学渲染：`remark-math` 和 `rehype-katex`。
-- 简历 PDF：`js-yaml` 读取数据，Puppeteer 将 HTML 模板输出为 PDF。
+- 本地简历生成工具与数据不属于公开网站源码，不上传 GitHub。
 
 | 位置 | 职责 |
 | --- | --- |
@@ -40,9 +40,7 @@
 | `src/content/projects/` | 项目 Markdown |
 | `src/content/publications/` | 学术成果 Markdown |
 | `src/content/blog/` | 博客内容约定目录；可在新增文章时建立 |
-| `cv/data.yaml`、`cv/data-zh.yaml` | 英文 / 中文 PDF 简历数据 |
-| `cv/template.html`、`cv/generate.js` | PDF 模板与生成脚本 |
-| `public/` | 头像、图标、`cv.pdf`、`cv-zh.pdf` 等公开资源 |
+| `public/` | 头像、图标等公开资源；不保存私人简历文件 |
 | `.github/workflows/deploy.yml` | GitHub Pages 部署流程 |
 | `docs/superpowers/` | 既有设计与实现记录，阅读时需与实际代码核对 |
 
@@ -67,7 +65,7 @@
 - 页面链接保留末尾 `/`；PDF、图片等文件资源链接使用实际文件路径，不附加 `/`。
 - 内容集合目前在两种语言页面中共享 Markdown；已有中文简历等页面含独立中文内容。不能声称所有正文都已翻译，也不能在重构中丢弃已有译文。
 - 保留中文 / 英文页面语言标记、页面标题和描述；元数据调整同步检查两个版本。
-- 维护 `/cv.pdf` 与 `/cv-zh.pdf`，分别对应英文和中文下载入口。
+- 中英文页面和侧栏统一使用 `hxshen_fdu@outlook.com`。网页简历不提供文件下载，原简历 PDF 地址应返回 404。
 
 ## 本地命令与验证
 
@@ -84,13 +82,12 @@ npm run test:e2e       # 已构建网站的桌面 / 移动端浏览器测试
 npm run verify        # 完整本地验收流程；首次先 npx playwright install chromium
 npm run build          # 静态构建，输出 dist/
 npm run preview        # 预览生产构建
-npm run cv             # 生成 public/cv.pdf 与 public/cv-zh.pdf
 ```
 
 - 仅修改指南文件时检查文档内容与 diff，无需安装依赖或重新生成 PDF。
 - 修改代码、路由、内容 schema 或配置后，执行 `npm run verify`。当前没有独立 lint 脚本；CI 的必要门禁名为 `quality` 和 `browser`。
 - 页面或交互变化后，在生产预览中检查六个模块的中英文版本、语言切换、详情链接、标签筛选和移动端导航；涉及公式时检查公式显示。
-- 修改简历数据、模板或生成器后再执行 `npm run cv`，查看两份 PDF 的文字、分页、链接和字体，再验证下载入口。
+- 私人简历工具、数据、详细说明和输出仅本地保存并由 Git 忽略；私密电话不得写入公开需求文档、测试、PR 或网站。操作说明也仅保存在本地目录。
 - 检查已有内容数量及关键字段是否在迁移前后一致；重点防止草稿公开、论文链接丢失、简历信息遗漏。
 - 若缺少运行环境或检查失败，记录具体原因和未完成验证，不把“未运行”写成“通过”。
 
@@ -99,7 +96,7 @@ npm run cv             # 生成 public/cv.pdf 与 public/cv-zh.pdf
 - GitHub Actions 在推送 `master` 时构建并发布 `dist/` 到 GitHub Pages。
 - 保持站点地址、静态输出和尾斜杠策略兼容现有部署。
 - 本地、CI 与部署统一使用 `.nvmrc` 的 Node 22.14.0；仍满足 `package.json` 的 Node >= 22.12.0 要求。
-- 网页简历内容与 PDF YAML 数据分开维护，后续抽取共享数据前应核对差异。
+- 网页履历与私人的本地文件分开维护，不从私人数据自动生成公开页面，不将本地文件放入 public/ 或 dist/。
 - 博客模块已有列表与详情路由，但当前未发现博客 Markdown 文件；不能为填充页面而编造文章。
 
 ## 每次交付要求

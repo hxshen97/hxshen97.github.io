@@ -49,7 +49,6 @@ site: 'https://<your-username>.github.io'
 | Homepage hero | `src/pages/index.astro` | Name in the `<h1>`, email and GitHub links |
 | Contact links | `src/pages/contact/index.astro` | Email, GitHub, LinkedIn URLs and display text |
 | CV content | `src/pages/cv/index.astro` | Education, experience, and skills sections |
-| CV PDF download | `public/cv.pdf` | Replace with your own PDF |
 | Sidebar social links | `src/components/Sidebar.astro` | GitHub URL and email `href` |
 
 ### Theme Colors
@@ -161,7 +160,6 @@ src/
 │   └── ...
 └── styles/global.css  # Theme variables & global styles
 public/
-├── cv.pdf             # Downloadable CV
 ├── profile.jpg        # Homepage profile photo
 ├── favicon.ico
 └── favicon.svg

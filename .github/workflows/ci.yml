@@ -10,8 +10,6 @@ permissions:
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-env:
-  PUPPETEER_SKIP_DOWNLOAD: 'true'
 jobs:
   quality:
     name: quality

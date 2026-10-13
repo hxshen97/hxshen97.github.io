@@ -13,10 +13,9 @@ for (let attempt = 1; attempt <= 3; attempt++) {
     }
     for (const path of ['cv.pdf', 'cv-zh.pdf']) {
       const response = await fetch(`${base}/${path}`, { signal: AbortSignal.timeout(20_000) });
-      assert.equal(response.status, 200);
-      assert.equal(Buffer.from(await response.arrayBuffer()).subarray(0, 5).toString(), '%PDF-');
+      assert.equal(response.status, 404, `private resume remains publicly available: ${response.url}`);
     }
-    console.log('Live bilingual modules and CV downloads verified.'); process.exit(0);
+    console.log('Live bilingual modules verified; private resume downloads are absent.'); process.exit(0);
   } catch (error) {
     console.error(`Verification attempt ${attempt}: ${error.message}`);
     if (attempt === 3) throw error;

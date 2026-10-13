@@ -120,8 +120,6 @@ Dark surface (`--bg-surface`), 1px border (`--border`), emerald left-accent bar 
 ## CV Page
 
 - Inline CV content rendered from Markdown
-- `public/cv.pdf` — maintained separately, linked for download
-- No auto-generation of PDF from Markdown
 
 ---
 

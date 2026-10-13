@@ -7,7 +7,6 @@ const lang: Lang = 'en';
 <SidebarLayout title={t(lang, 'cv.title')} description="Curriculum vitae of HxS." lang={lang}>
   <div class="cv-header">
     <h1>{t(lang, 'cv.title')}</h1>
-    <a href="/cv.pdf" download class="btn-download">{t(lang, 'cv.download')}</a>
   </div>
 
   <section class="cv-section">
@@ -117,16 +116,6 @@ const lang: Lang = 'en';
   gap: 1rem;
 }
 h1 { font-size: 2rem; }
-
-.btn-download {
-  padding: 0.5rem 1.2rem;
-  background: var(--gradient);
-  color: #fff;
-  border-radius: var(--radius);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-.btn-download:hover { opacity: 0.85; color: #fff; }
 
 .cv-section { margin-bottom: 2.5rem; }
 .cv-section h2 {
