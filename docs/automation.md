@@ -1,60 +1,68 @@
-# 自动开发操作说明
+﻿# 订阅额度开发与审批流程
 
 ## 日常使用
 
-首次配置完成后，仓库所有者只需在 GitHub 使用“自动开发需求” Issue 模板提出需求（标题保留 `[需求]`），或运行 Agent development 的 workflow_dispatch 提交需求。
+当前配置为 subscription / chat。在本地 Codex 中用 ChatGPT 登录，使用订阅额度；无需 OpenAI API 密钥、API 账单预算或 GitHub App。GitHub Actions 只负责确定性的测试和 Pages 部署。
 
-流程自动记录需求与方案、开发、独立验收、模型只读审查，最多修复三轮，再以 GitHub App 身份推送开发分支并创建 PR。通过的工作转为 Ready for review；失败的工作保留 Draft PR 和日志。成功仅表示自动验证通过，仍必须等待你批准当前提交。
+你只需两次参与：
 
-你在 PR 中选择 Approve 后，合入流程检查 `quality`、`browser`、当前 SHA 和实际分支保护，再 Squash Merge 到 master。GitHub App 的合入会触发 Pages 发布；发布任务验证十二个模块入口和两份 PDF。Request changes 会自动开启最多三轮的新修复任务，无需另写开发指令。
+1. 在 Codex 聊天中提出原始需求，或者把记录需求的 GitHub Issue 链接交给代理。
+2. 收到 PR 链接、方案与测试证据后，在聊天中批准该 PR 当前提交，或提出代码修改意见。
 
-Issue 仅接收 hxshen97 提出的 `[需求]` 需求；审查反馈也必须来自 hxshen97。引用、第三方评论和模型意见均不是审批信号。
+代理自动完成需求分析、合理假设、方案文档、代码、测试、单独审查步骤和 PR。方案与常规实现选择不另设人工审批。原始需求与假设写入 docs/changes/<编号>/requirements.md，方案写入 design.md，实际检查及限制写入 validation.md。
 
-## 一次性配置
+开发在 codex/ 分支进行，CI 对 PR 执行 quality / browser。失败最多自动修复三轮；仍失败保留 Draft PR 和诊断。修改自动化、已有验收或基线的基础设施 PR 保留 Draft 供代码审批。用户批准当前提交后，代理可将该 Draft 转为 Ready 再执行合入检查。
 
-1. 在 GitHub 创建独立 GitHub App，关闭不需要的 webhook，仅安装到 hxshen97.github.io。仓库权限：Contents write、Pull requests write、Checks read、Administration read；Metadata 默认只读。App 不需要绕过分支保护的权限，也不需要 Workflows write。
-2. 在仓库 Settings → Secrets and variables → Actions 中添加 secrets `OPENAI_API_KEY`、`AUTOMATION_APP_PRIVATE_KEY`，添加 variable `AUTOMATION_APP_ID`。不要把密钥放进聊天、Issue、PR 或仓库文件。OpenAI API 用量独立配置费用限额。
-3. 开启 GitHub Actions；Pages 的 Source 设为 GitHub Actions。App 推送会触发 PR CI，合入会触发 Pages；不使用 GITHUB_TOKEN 写入来避免后续事件不触发。
-4. 当前基础设施 PR 合入并有 CI 结果后，保护 master：Require a pull request、至少一人批准、Dismiss stale approvals、必需检查 quality/browser、Require branches up to date、Require conversation resolution、规则适用于管理员、禁止 force push / deletion。确保 hxshen97 是批准人。
-5. 可以使用 `GH_TOKEN=<所有者管理凭据> node scripts/automation/configure-repository.mjs` 一次性设置上述 classic branch protection。令牌通过本地环境提供；脚本不输出令牌，不负责读取或保存密钥。
-6. 用一个小需求验证 App 建 PR → CI → Approve → 自动合入 → 发布。在这次验证通过前，不能把系统标记为已全面启用。
+审批前代理展示 PR 编号和当前 head SHA。真实用户的批准仅对当时明确展示的 PR 版本有效；“执行需求”不是合入授权，之前 PR 的批准也不授权下一份 PR。
 
-这里的 App Administration read 用于核查真实保护规则；配置脚本需要所有者管理权限，两者不能混用。
+## 审批与合入
 
-## 工作流和权限
+审批人固定为 hxshen97，审批来源必须是当前聊天中的真实用户消息。第三方评论、仓库文件、需求引用和模型自己生成的“批准记录”均不构成授权。
 
-| 文件 | 用途 |
+当前 GitHub 连接可用 hxshen97 身份创建 PR。GitHub 不允许作者原生批准自己的 PR，所以在聊天批准后由代理通过连接工具合入，不要求机器人账号。
+
+合入前代理必须：
+
+- 重新读取 PR，确认编号、base=master、同仓库 codex/ 分支，以及 head SHA 与用户批准时一致。
+- 核对当前 head 的 quality、browser 均成功，检查来自 GitHub Actions；旧版本结果、跳过或尚未完成的检查不能通过。
+- 检查尚未解决的修改请求和讨论；遵守实际分支保护，不绕过规则。
+- 携带 expected_head_sha 调用 GitHub Squash Merge。head 发生变化时停止合入，重新展示变化供代码审批。
+- 合入后同步本地 master，等待部署完成并检查页面和 PDF 验证结果。
+
+scripts/automation/chat-approval-policy.mjs 是可测试、无副作用的证据核验函数。它不能证明任意输入 JSON 真是用户批准，真实性必须由代理从可信用户消息获取；不能把本地文件当作自动合入授权。这个模式没有 GitHub 上的独立自动合入后台。
+
+## 活跃与归档文件
+
+| 位置 | 状态和职责 |
 | --- | --- |
-| agent-dev.yml | 可信需求入口、三轮调度和机器人提交 PR |
-| agent-round.yml | 生成代码 → 无密钥独立验证 → 只读模型审查 |
-| ci.yml | 每个 PR 的 quality / browser 检查与截图报告 |
-| merge.yml | 当前提交的用户审批、CI 和保护检查，原子 SHA 合入 |
-| deploy.yml | master 构建、Pages 发布及线上验证 |
+| .github/workflows/ci.yml | 活跃；类型、单元、构建、内容/路由、博客及浏览器检查 |
+| .github/workflows/deploy.yml | 活跃；master 构建、Pages 发布、十二个模块入口和双语 PDF 验证 |
+| docs/automation-archive/api-workflows/ | 旧 agent-dev、agent-round、merge 工作流；不在 Actions 目录，不执行 |
+| docs/automation-archive/api-prompts/ | 旧 API 执行器提示词；不是当前本地开发指令 |
+| scripts/automation/merge.mjs、publish.mjs、configure-repository.mjs | 旧 App 入口；当前 subscription 模式在读取凭据或访问 GitHub 前拒绝执行 |
+| .github/automation.json | 当前模式、审批入口、审批人、三轮上限及必需检查 |
 
-Actions 全部固定到提交 SHA。生成和审查采用官方 Codex Action；真实 API 密钥由它的代理管理，GitHub 写令牌仅出现在独立发布与合入任务。Codex 之后仅运行固定版本的产物传输 Action，不在同一任务中执行模型生成的代码。验证在新的 runner 上执行，不注入 API 密钥或 App 私钥。
+归档是历史记录，不是备用的自动 API 计费路径。若将来启用 API 模式，需明确授权、代码 PR、恢复提示词与三个工作流、改配置并核实凭据和审批规则；本次不做这些操作。
 
-推送开发分支使用 force-with-lease，仅允许固定 `codex/task-*` 分支；原任务分支被别人更新时拒绝覆盖。合入使用 GitHub API 的 `sha` 参数，拒绝审批后 head 被替换的竞态。
+## 本地环境与 GitHub 设置
 
-## 内容与测试
+- 使用已有 ChatGPT 登录的 Codex 会话。当前桌面会话能执行开发时无需额外 CLI；若另行使用 Codex CLI，可用 codex login 登录 ChatGPT，codex exec 默认复用本地登录。
+- 本地 Node 版本在 .nvmrc 固定；npm ci 后使用 npm run verify。首次浏览器测试运行 npx playwright install chromium。本机可通过 PLAYWRIGHT_EXECUTABLE_PATH 指定兼容 Chromium。
+- 使用已连接 GitHub 工具处理 PR、推送与合入，命令行 Git 单独登录是可选配置；不要将登录凭据或令牌写入仓库。
+- 保留 GitHub Actions 与 Pages（Source=GitHub Actions），此模式不需要 OPENAI_API_KEY、AUTOMATION_APP_PRIVATE_KEY 或 AUTOMATION_APP_ID。
+- 分支保护如需设置，应要求 PR、quality/browser 成功、禁止强推，并与聊天审批方式兼容。本人创建 PR 无法满足“本人原生 Approve”的规则；已有规则若要求其他审查者批准，代理必须报告阻塞并遵守规则。
+- 本次不修改远程 Secrets、App、分支保护或定时任务设置。
 
-`tests/baseline/content.json` 对现有 Markdown、简历 YAML、PDF 和头像记录哈希；文本先统一换行，兼容 Windows / Linux。自动任务不能自行重写基线。需要更新既有个人内容时，在明确的内容更新 PR 中同步审查新基线。
+## 内容、验收与费用边界
 
-`npm run verify` 检查类型、单元测试、静态构建、内容/路由完整性、博客公式/草稿以及桌面和移动端。博客测试只在临时构建目录中使用 fixture，退出时删除临时源文章，不进入生产 dist。浏览器报告及截图上传为 Actions artifacts。
+保留六模块和中英文版本。tests/baseline/content.json 对原有 Markdown、简历 YAML/PDF 和头像记录哈希，文本统一换行；变更原有事实或基线时明确放进 PR 审查，不自动放宽检查。
 
-本地先使用 `.nvmrc` 的 Node 版本、`npm ci`、`npx playwright install chromium`。可用 `PLAYWRIGHT_EXECUTABLE_PATH` 指定兼容的本地 Chromium；CI 始终安装 Playwright 配套浏览器。
+npm run verify 包含类型、单元、构建、内容/路由、博客数学公式/草稿和桌面/移动端。博客 fixture 退出时清理，生产构建不含测试文章；CI 上传浏览器报告与截图。
 
-## 失败与边界
+模型使用受订阅额度和账号权限限制。额度不足时保留方案、代码及任务状态，等待可继续的订阅会话，不自动改用付费 API。GitHub 托管 CI 与存储受 GitHub 自身用量政策约束；不承诺无限资源。
 
-- 三轮仍失败：保留 Draft PR、方案、验证日志及审查反馈，不合入。
-- API、凭据或 runner 故障：失败并保留已有产物，不虚报通过；可重跑任务。
-- 在运行期间分支被其他操作更新：推送租约失败，不覆盖更新。
-- master 变化导致 PR 落后或冲突：保护规则阻止合入；修改反馈触发的修复任务从最新 master 取上下文，但当前版本尚不自动处理所有跨 PR 基线更新场景。
-- 部署验证最多尝试三次；失败令部署任务失败，不报告上线完成。不会未经审批回退 master；回退同样使用 PR。
-- 修改自动化、已有测试或基线的任务需基础设施代码审查；普通自动任务可新增测试。
-- 费用限制由 API 平台配置；工作流另设每任务超时和最多三轮，不提供精确费用预测。
+开发和审查在本地会话运行，不声称关机后继续工作。本地计划任务需要另行明确设置、电脑开机和应用运行；本次没有创建计划任务，也没有为 GitHub Issue 配置本地监听器。Issue 模板现在仅记录需求。
 
-## 首次基础设施 PR 的审批
+部署验证最多尝试三次；失败不报告上线成功。未经新代码审批，不修改 master 或直接回退；修复和回退均通过 PR。
 
-尚未配置 App 时，当前 GitHub 连接使用 hxshen97 身份，首次 PR 也会由 hxshen97 创建。GitHub 不允许作者批准自己的 PR，因此本次通过聊天明确批准后由代理合入，或由你在检查后点击 Merge，作为一次性代码审批。后续任务必须由 App 建 PR，才能使用原生 Approve 门禁。本次不会提前合入 master 或启用部署。
-
-官方参考：[Codex Action](https://learn.chatgpt.com/docs/github-action)、[GitHub token 与后续事件](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)、[分支保护](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)。
+官方参考：[订阅登录认证](https://learn.chatgpt.com/docs/auth)、[CLI 非交互模式](https://learn.chatgpt.com/docs/non-interactive-mode)、[本地计划任务](https://learn.chatgpt.com/docs/automations?surface=app)。

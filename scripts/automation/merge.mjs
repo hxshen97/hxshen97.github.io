@@ -3,6 +3,7 @@ import { client, paginate } from './github.mjs';
 import { mergeDecision } from './merge-policy.mjs';
 
 const config = JSON.parse(readFileSync(new URL('../../.github/automation.json', import.meta.url), 'utf8'));
+if (config.mode !== 'api') throw new Error('Legacy App merge is disabled. Use real user chat approval and the connected GitHub merge tool in subscription mode.');
 const api = client();
 const repo = `/repos/${config.repository}`;
 const branch = await api(`${repo}/branches/${config.baseBranch}`);

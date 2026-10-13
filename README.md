@@ -13,7 +13,7 @@ npm run preview      # Preview production build locally
 
 ## Automated development
 
-See [AGENTS.md](AGENTS.md) for repository rules and [docs/automation.md](docs/automation.md) for one-time GitHub App/secrets/branch protection setup. After setup, submit an owner-created `[需求]` issue; automation produces a plan, code, test evidence and a PR. Only owner approval of the current commit permits automatic merge and deployment.
+Development and review run in local Codex using a ChatGPT subscription login. Submit a requirement in the Codex chat; the agent writes the plan, implements the change, runs tests and creates a PR through the connected GitHub tools. Approve that PR's current commit in the chat; the agent checks its head and CI before merging. See [AGENTS.md](AGENTS.md) and [docs/automation.md](docs/automation.md).
 
 Local acceptance (Node version is pinned in `.nvmrc`):
 
@@ -23,7 +23,7 @@ npx playwright install chromium
 npm run verify
 ```
 
-CI requires the `quality` and `browser` checks. Secrets are never stored in the repository. The initial infrastructure PR does not itself provision credentials or enable branch protection.
+CI requires the `quality` and `browser` checks. This mode requires no OpenAI API key, API billing or GitHub App. GitHub Actions runs tests and deployment only; the former API workflows are archived outside `.github/workflows/`. Issues can record requirements but do not start unattended development.
 
 ## GitHub Pages deployment
 

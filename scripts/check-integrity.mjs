@@ -13,6 +13,9 @@ for (const [path, hash] of Object.entries(baseline.files)) {
   assert.equal(actual, hash, `content changed: ${path}; requires an explicit baseline review`);
 }
 for (const prefix of ['', 'zh/']) {
+  for (const fixture of ['automation-test-published', 'automation-test-draft']) {
+    assert.ok(!existsSync(join(root, 'dist', prefix, 'blog', fixture, 'index.html')), `test fixture leaked into production: ${prefix}${fixture}`);
+  }
   for (const section of ['', 'projects/', 'blog/', 'publications/', 'cv/', 'contact/']) {
     const path = join(root, 'dist', prefix, section, 'index.html');
     assert.ok(existsSync(path), `missing built route: /${prefix}${section}`);

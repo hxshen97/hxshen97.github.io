@@ -1,6 +1,8 @@
 {
   "repository": "hxshen97/hxshen97.github.io",
   "baseBranch": "master",
+  "mode": "subscription",
+  "approvalMode": "chat",
   "approver": "hxshen97",
   "maxAttempts": 3,
   "requiredChecks": ["quality", "browser"]
