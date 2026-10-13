@@ -1,12 +1,12 @@
 name: 自动开发需求
-description: 提出需求；代理自动生成方案、开发、验证并提交 PR。
+description: 记录需求，再在 Codex 聊天引用此 Issue；不会触发云端模型开发。
 title: "[需求] "
 body:
   - type: textarea
     id: request
     attributes:
       label: 原始需求
-      description: 描述想解决的问题或期望效果，无需给出实现方案。
+      description: 描述想解决的问题或期望效果，无需给出实现方案。创建后在 Codex 聊天中交给代理执行。
     validations:
       required: true
   - type: textarea

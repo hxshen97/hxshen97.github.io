@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { client } from './github.mjs';
 
 const config = JSON.parse(readFileSync(new URL('../../.github/automation.json', import.meta.url), 'utf8'));
+if (config.mode !== 'api') throw new Error('Legacy native-review setup is disabled in subscription mode. Follow docs/automation.md for chat-compatible branch protection.');
 const api = client();
 const repo = `/repos/${config.repository}`;
 const owner = await api('/user');

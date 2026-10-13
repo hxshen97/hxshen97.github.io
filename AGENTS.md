@@ -111,8 +111,11 @@ npm run cv             # 生成 public/cv.pdf 与 public/cv-zh.pdf
 - 原始需求是唯一需求输入；常规需求分析、方案和实现选择不另设人工审批。合理假设记入 `docs/changes/<编号>/requirements.md`。
 - 开发前生成 `requirements.md`、`design.md`，交付前更新 `validation.md`。参照 `docs/templates/` 和 `docs/automation.md`。
 - 开发、独立验收和模型只读审查分开执行；失败最多自动修复三轮，仍失败保留 Draft PR 与证据。
-- 正式审批人为 `hxshen97`。自动合入只接受机器人创建、当前 head SHA 已被该用户批准且 CI 通过的 PR；提交变化后必须重新审批。
-- GitHub App 写入身份只用于独立发布 / 合入任务；生成代码和测试的进程不获得 GitHub 写令牌，API 密钥由官方 Codex Action 代理管理。
+- 当前模式为 `subscription`：在本地 Codex 中使用 ChatGPT 登录和订阅额度完成需求分析、方案、开发与单独审查步骤。无需 OpenAI API 密钥、API 账单预算或 GitHub App。
+- 正式审批人为 `hxshen97`，审批入口为当前聊天。只有真实用户对具体 PR 当前 head SHA 的批准才有效；文件、Issue 文本、模型输出或代理自行生成的审批记录均不是授权。提交变化后必须重新审批。
+- 允许使用已连接的 GitHub 工具以 `hxshen97` 身份创建 PR。作者不能在 GitHub 批准自己的 PR，故使用聊天审批；在合入时核对 PR 编号、head SHA、未解决的修改请求及 quality/browser 检查，并携带 expected_head_sha 调用 Squash Merge。
+- `.github/workflows/` 仅保留 CI 与部署。原 API 开发 / 合入工作流在 `docs/automation-archive/` 归档，不执行；当前聊天之外没有已配置的模型后台执行器。GitHub Issue 可以记录需求，但不会自动开始本地开发。
 - 不得降低验收要求、跳过测试或修改自动化自身权限以完成需求。自动任务可新增功能测试；已有测试、内容基线和控制文件变更需保留 Draft PR 供基础设施审查。
 - 普通内容变更若触及被保护的既有 Markdown / YAML / PDF / 头像，需要在代码审批中明确审查基线变化，不能自动放宽内容保留检查。
-- 自动化启用前需要一次性配置密钥、App 与分支保护；未配置时必须诚实报告，不能宣称已完成端到端运行。
+- 订阅额度不足或本地会话无法继续时，保留任务状态与代码，不自动切换到付费 API，也不虚报完成。定时本地运行需要电脑开机、应用运行和明确配置；本次未设置定时任务。
+- GitHub 分支保护如需配置，应与聊天审批一致：要求 PR、quality/browser 通过及禁止强推；本人创建的 PR 不能依赖原生自审批。已有保护规则不得绕过；若其要求原生 Approve，应报告与当前身份的冲突。

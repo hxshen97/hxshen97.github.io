@@ -17,25 +17,17 @@ test('all Actions are pinned and every executable job has a time limit', () => {
     }
   }
 });
-test('generation and validation jobs do not receive App private keys or write tokens', () => {
-  const workflow = workflows['agent-round.yml'];
-  assert.deepEqual(Object.keys(workflow.on.workflow_call.secrets), ['OPENAI_API_KEY']);
-  for (const job of Object.values(workflow.jobs)) {
-    assert.equal(job.env?.GH_TOKEN, undefined);
-    for (const step of job.steps || []) {
-      assert.equal(step.env?.GH_TOKEN, undefined);
-      assert.equal(step.env?.OPENAI_API_KEY, undefined);
-      assert.equal(step.env?.CODEX_API_KEY, undefined);
-    }
-  }
-  assert.ok(!JSON.stringify(workflow.jobs.validate).includes('secrets.'));
+test('active workflows only test and deploy, with no model/API/App credentials', () => {
+  assert.deepEqual(Object.keys(workflows).sort(), ['ci.yml', 'deploy.yml']);
+  const text = JSON.stringify(workflows);
+  assert.doesNotMatch(text, /openai\/codex-action|OPENAI_API_KEY|CODEX_API_KEY|AUTOMATION_APP_|GH_TOKEN/);
+  assert.equal(workflows['ci.yml'].jobs.quality.name, 'quality');
+  assert.equal(workflows['ci.yml'].jobs.browser.name, 'browser');
 });
-test('merge executes only master code and uses owner approval policy', () => {
-  const steps = workflows['merge.yml'].jobs.merge.steps;
-  const checkout = steps.find(step => step.uses?.startsWith('actions/checkout@'));
-  assert.equal(checkout.with.ref, 'master');
-  assert.ok(steps.some(step => step.run === 'node scripts/automation/merge.mjs'));
+test('subscription configuration uses chat approval and keeps required checks', () => {
   const config = JSON.parse(readFileSync('.github/automation.json', 'utf8'));
+  assert.equal(config.mode, 'subscription');
+  assert.equal(config.approvalMode, 'chat');
   assert.equal(config.approver, 'hxshen97');
   assert.equal(config.maxAttempts, 3);
   assert.deepEqual(config.requiredChecks, ['quality', 'browser']);
