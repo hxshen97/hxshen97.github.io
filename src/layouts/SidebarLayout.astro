@@ -8,8 +8,9 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  home?: boolean;
 }
-const { title, description = 'HxS — Software Engineer & Mathematician', lang = 'en' } = Astro.props;
+const { title, description = 'HxS — Software Engineer & Mathematician', lang = 'en', home = false } = Astro.props;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -26,7 +27,7 @@ const { title, description = 'HxS — Software Engineer & Mathematician', lang =
   </head>
   <body>
     <Sidebar lang={lang} />
-    <main class="main-content">
+    <main class:list={['main-content', { 'main-home': home }]}>
       <slot />
     </main>
   </body>
@@ -39,6 +40,7 @@ const { title, description = 'HxS — Software Engineer & Mathematician', lang =
   padding: 3rem;
   max-width: calc(var(--sidebar-w) + 860px);
 }
+.main-home { padding: 0; max-width: none; }
 
 @media (max-width: 768px) {
   .main-content {
@@ -46,5 +48,6 @@ const { title, description = 'HxS — Software Engineer & Mathematician', lang =
     padding: 68px 1.25rem 2rem;
     max-width: 100%;
   }
+  .main-home { padding: 48px 0 0; }
 }
 </style>
