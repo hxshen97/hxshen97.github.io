@@ -42,6 +42,7 @@
 | --- | --- |
 | `src/pages/` | 英文页面、动态详情页及 `zh/` 中文镜像路由 |
 | `src/components/` | 侧栏、导航、项目 / 文章 / 学术成果卡片、标签与筛选 |
+| `src/components/HomePage.astro` | 共享双语首页、集合精选规则、Apple 风格分区及入场 / 滚动动画；首页路由为薄入口 |
 | `src/layouts/SidebarLayout.astro` | 共享布局 |
 | `src/i18n/ui.ts` | `en` / `zh` 字典、`t`、`localizedPath`、`langSwitchPaths` |
 | `src/styles/global.css` | 全局样式和主题变量 |
@@ -62,6 +63,7 @@
 6. 不为结构整理引入无必要的依赖或前端框架。依赖变化需说明用途，并同步 `package-lock.json`。
 7. 保持桌面与移动端导航、侧栏展开 / 收起、键盘操作、可见焦点、语义化结构和图片替代文本。
 8. 保留现有简洁视觉方向；`DESIGN.md` 是设计参考。结构重构不自动授权大幅改版，用户新要求优先。
+   首页视觉样式集中在 `HomePage.astro`，新增文案和姓名在双语字典维护；动画应在无 JavaScript 时仍保留可读内容，并遵守 `prefers-reduced-motion`。首页保留无文章时的博客空状态和入口。
 9. 不覆盖用户已有改动。用户已授权需求到 PR 的自动开发：允许创建 `codex/` 分支、提交、推送开发分支和创建 / 更新 PR。未经用户批准当前提交，不得合入或直接推送 `master`；推送 `master` 会触发部署。
 
 ## 双语约束

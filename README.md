@@ -46,12 +46,14 @@ site: 'https://<your-username>.github.io'
 | Name / initials | `src/components/Sidebar.astro` | Replace `HxS` in the logo `<span>` (appears twice: desktop and mobile) |
 | Tagline & bio | `src/i18n/ui.ts` | Edit `sidebar.tagline`, `home.role`, `home.bio` |
 | Profile photo | `public/profile.jpg` | Replace with your own photo (displayed in homepage hero) |
-| Homepage hero | `src/pages/index.astro` | Name in the `<h1>`, email and GitHub links |
+| Homepage | `src/components/HomePage.astro` | Shared bilingual layout, content selection, email and GitHub links; UI text and name in `src/i18n/ui.ts` |
 | Contact links | `src/pages/contact/index.astro` | Email, GitHub, LinkedIn URLs and display text |
 | CV content | `src/pages/cv/index.astro` | Education, experience, and skills sections |
 | Sidebar social links | `src/components/Sidebar.astro` | GitHub URL and email `href` |
 
 ### Theme Colors
+
+The homepage routes (`src/pages/index.astro` and `src/pages/zh/index.astro`) are thin entries for `HomePage.astro`. Its scoped styles follow `DESIGN.md`: black introduction and contact sections, light project and writing sections, blue actions, and responsive typography. Homepage entrance and scroll reveals use native browser animation with no extra dependency; content stays visible without JavaScript and animations respect `prefers-reduced-motion`. Featured projects (up to 3), publications (up to 2, newest year first), and published posts (up to 4, newest date first) still come from the existing collections. With no posts, the homepage shows an empty state and a working blog link.
 
 Edit CSS variables in `src/styles/global.css`:
 

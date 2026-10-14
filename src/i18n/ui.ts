@@ -6,6 +6,16 @@ export const defaultLang: Lang = "en";
 
 export const ui: Record<Lang, Record<string, string>> = {
   en: {
+    "home.name": "Hanxiang Shen",
+    "home.title": "Home",
+    "home.welcome": "Personal portfolio",
+    "home.viewCV": "View CV",
+    "home.explore": "Explore my work",
+    "home.research": "Research",
+    "home.noProjects": "No featured projects yet.",
+    "home.noPosts": "No published posts yet.",
+    "home.email": "Email me",
+    "home.contactDetails": "Contact details",
     "nav.about": "About",
     "nav.projects": "Projects",
     "nav.blog": "Blog",
@@ -40,6 +50,16 @@ export const ui: Record<Lang, Record<string, string>> = {
     "filter.all": "All",
   },
   zh: {
+    "home.name": "沈瀚翔",
+    "home.title": "首页",
+    "home.welcome": "个人主页",
+    "home.viewCV": "查看简历",
+    "home.explore": "了解我的工作",
+    "home.research": "学术研究",
+    "home.noProjects": "暂无精选项目。",
+    "home.noPosts": "暂无已发布文章。",
+    "home.email": "发送邮件",
+    "home.contactDetails": "详细联系方式",
     "nav.about": "关于",
     "nav.projects": "项目",
     "nav.blog": "博客",
