@@ -19,7 +19,6 @@ tsconfig.json                             TypeScript strict config
 .gitignore                                Standard Astro gitignore + .superpowers/
 public/
   favicon.svg                             Site favicon
-  cv.pdf                                  Placeholder CV PDF (user replaces)
   _headers                                Cloudflare Pages security headers
 src/
   env.d.ts                                Astro type reference
@@ -1467,13 +1466,6 @@ git commit -m "feat: add publications page grouped by year"
 
 **Files:**
 - Create: `src/pages/cv/index.astro`
-- Create: `public/cv.pdf`
-
-- [ ] **Step 10.1: Create placeholder cv.pdf**
-
-```bash
-printf '%PDF-1.4\n%%placeholder - replace with real CV\n' > public/cv.pdf
-```
 
 - [ ] **Step 10.2: Create src/pages/cv/index.astro**
 
@@ -1485,7 +1477,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="CV" description="Curriculum vitae of HxS.">
   <div class="cv-header">
     <h1>Curriculum Vitae</h1>
-    <a href="/cv.pdf" download class="btn-download">Download PDF →</a>
   </div>
 
   <section class="cv-section">
@@ -1549,15 +1540,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 }
 h1 { font-size: 2rem; }
 
-.btn-download {
-  padding: 0.5rem 1.2rem;
-  background: var(--gradient);
-  color: #fff;
-  border-radius: var(--radius);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-.btn-download:hover { opacity: 0.85; color: #fff; }
 
 .cv-section { margin-bottom: 2.5rem; }
 .cv-section h2 {
@@ -1617,7 +1599,7 @@ Expected: `index.html`
 - [ ] **Step 10.4: Commit**
 
 ```bash
-git add src/pages/cv/ public/cv.pdf
+git add src/pages/cv/
 git commit -m "feat: add CV page with download link"
 ```
 

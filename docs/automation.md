@@ -27,7 +27,7 @@
 - 核对当前 head 的 quality、browser 均成功，检查来自 GitHub Actions；旧版本结果、跳过或尚未完成的检查不能通过。
 - 检查尚未解决的修改请求和讨论；遵守实际分支保护，不绕过规则。
 - 携带 expected_head_sha 调用 GitHub Squash Merge。head 发生变化时停止合入，重新展示变化供代码审批。
-- 合入后同步本地 master，等待部署完成并检查页面和 PDF 验证结果。
+- 合入后同步本地 master，等待部署完成并检查页面和已撤下的简历下载地址。
 
 scripts/automation/chat-approval-policy.mjs 是可测试、无副作用的证据核验函数。它不能证明任意输入 JSON 真是用户批准，真实性必须由代理从可信用户消息获取；不能把本地文件当作自动合入授权。这个模式没有 GitHub 上的独立自动合入后台。
 
@@ -55,7 +55,7 @@ scripts/automation/chat-approval-policy.mjs 是可测试、无副作用的证据
 
 ## 内容、验收与费用边界
 
-保留六模块和中英文版本。tests/baseline/content.json 对原有 Markdown、简历 YAML/PDF 和头像记录哈希，文本统一换行；变更原有事实或基线时明确放进 PR 审查，不自动放宽检查。
+保留六模块和中英文网页版本。tests/baseline/content.json 对公开 Markdown 和头像记录哈希，文本统一换行；变更原有事实或基线时明确放进 PR 审查。私人简历程序、数据、生成文件和详细资料仅本地保存，不进入 GitHub 或公开构建；网页邮箱统一为 hxshen_fdu@outlook.com。
 
 npm run verify 包含类型、单元、构建、内容/路由、博客数学公式/草稿和桌面/移动端。博客 fixture 退出时清理，生产构建不含测试文章；CI 上传浏览器报告与截图。
 

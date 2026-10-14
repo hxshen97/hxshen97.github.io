@@ -25,7 +25,7 @@ for (const [command, args] of commands) {
   const label = `${command} ${args.join(' ')}`;
   appendFileSync(`${root}/.automation/validation.log`, `\n$ ${label}\n`);
   const result = spawnSync(command, args, { cwd: root, encoding: 'utf8', timeout: 300_000, maxBuffer: 16 * 1024 * 1024,
-    env: { ...process.env, PUPPETEER_SKIP_DOWNLOAD: 'true' } });
+    env: process.env });
   const output = `${result.stdout || ''}${result.stderr || ''}${result.error?.message || ''}`;
   console.log(output);
   appendFileSync(`${root}/.automation/validation.log`, `${output}\nexit=${result.status}\n`);

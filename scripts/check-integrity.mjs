@@ -5,6 +5,10 @@ import assert from 'node:assert/strict';
 
 const root = resolve(process.argv[2] || '.');
 const baseline = JSON.parse(readFileSync(new URL('../tests/baseline/content.json', import.meta.url), 'utf8'));
+for (const filename of ['cv.pdf', 'cv-zh.pdf']) {
+  assert.ok(!existsSync(join(root, 'public', filename)), `private resume must not be in public: ${filename}`);
+  assert.ok(!existsSync(join(root, 'dist', filename)), `private resume leaked into production: ${filename}`);
+}
 for (const [path, hash] of Object.entries(baseline.files)) {
   assert.ok(existsSync(join(root, path)), `missing existing content/resource: ${path}`);
   // A normal automated refactor may not silently rewrite facts or published resources.

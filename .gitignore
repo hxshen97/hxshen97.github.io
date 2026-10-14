@@ -30,3 +30,9 @@ pnpm-debug.log*
 test-results/
 playwright-report/
 .tools/
+
+# Local-only resume tooling, data, notes and generated artifacts
+/cv/
+/output/pdf/
+/tmp/pdfs/
+/public/cv*.pdf

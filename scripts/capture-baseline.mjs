@@ -8,7 +8,7 @@ const content = ['projects', 'publications', 'blog'].flatMap(collection => {
   try { return readdirSync(directory).filter(name => name.endsWith('.md')).map(name => `${directory}/${name}`); }
   catch (error) { if (error.code === 'ENOENT') return []; throw error; }
 });
-const files = [...content, 'cv/data.yaml', 'cv/data-zh.yaml', 'public/cv.pdf', 'public/cv-zh.pdf', 'public/profile.jpg'];
+const files = [...content, 'public/profile.jpg'];
 const baseline = {
   capturedFrom: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   files: Object.fromEntries(files.map(path => [path, createHash('sha256').update(/\.(md|yaml)$/.test(path) ? readFileSync(path, 'utf8').replace(/\r\n/g, '\n') : readFileSync(path)).digest('hex')])),

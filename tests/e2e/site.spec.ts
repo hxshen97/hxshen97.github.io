@@ -58,13 +58,14 @@ for (const lang of ['en', 'zh'] as const) {
     await expect(page.locator('.lang-switch a:not(.active)')).toHaveAttribute('href', lang === 'en' ? `/zh${href}` : href!.replace(/^\/zh/, ''));
   });
 
-  test(`${lang} CV download is an actual PDF`, async ({ page, request }) => {
+  test(`${lang} CV stays readable without PDF downloads`, async ({ page, request }) => {
     await page.goto(`${prefix}/cv/`);
     const href = lang === 'en' ? '/cv.pdf' : '/cv-zh.pdf';
-    await expect(page.locator('a[download]')).toHaveAttribute('href', href);
+    await expect(page.locator('main h1')).toBeVisible();
+    await expect(page.locator('main a[download]')).toHaveCount(0);
+    await expect(page.locator('main a[href$=".pdf"]')).toHaveCount(0);
     const response = await request.get(href);
-    expect(response.status()).toBe(200);
-    expect((await response.body()).subarray(0, 5).toString()).toBe('%PDF-');
+    expect(response.status()).toBe(404);
   });
 
   test(`${lang} contains baseline publications and contact`, async ({ page }) => {

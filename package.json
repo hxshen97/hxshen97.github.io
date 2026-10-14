@@ -10,7 +10,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "cv": "node cv/generate.js",
     "check": "astro check",
     "test": "node --experimental-strip-types --test tests/unit/*.test.mjs",
     "test:integrity": "node scripts/check-integrity.mjs",
@@ -28,7 +27,6 @@
   "devDependencies": {
     "@playwright/test": "^1.64.0",
     "@types/node": "^22.20.5",
-    "js-yaml": "^4.1.1",
-    "puppeteer": "^24.40.0"
+    "js-yaml": "^4.1.1"
   }
 }
