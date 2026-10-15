@@ -3,6 +3,7 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 import ProjectCard from './ProjectCard.astro';
 import PublicationCard from './PublicationCard.astro';
 import PostCard from './PostCard.astro';
+import MotionExperience from './motion/MotionExperience';
 import { getCollection } from 'astro:content';
 import { t, localizedPath, type Lang } from '../i18n/ui';
 
@@ -37,6 +38,7 @@ const recentPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
           <img src="/profile.jpg" alt={name} fetchpriority="high" />
         </figure>
       </div>
+      <MotionExperience lang={lang} client:load />
       <a class="explore" href="#selected-work">{t(lang, 'home.explore')} <span aria-hidden="true">↓</span></a>
     </section>
 
@@ -202,5 +204,47 @@ const recentPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
   @media (prefers-reduced-motion: reduce) {
     .pill, .explore span { transition: none; }
     .pill:active, .explore:hover span { transform: none; }
+  }
+
+  /* Experimental reading layout: static content around an independent GPU scene. */
+  .homepage { --home-gutter: clamp(24px, 4vw, 64px); background: #080d18; color: #e8eef9; }
+  .hero, .contact, .projects, .research, .writing { background: transparent; color: inherit; }
+  .hero { padding-top: 48px; }
+  .hero-content { grid-template-columns: minmax(0, 1fr) 92px; min-height: 0; gap: 28px; }
+  h1 { font-size: clamp(40px, 5vw, 66px); letter-spacing: -.045em; margin-bottom: 16px; }
+  .hero .eyebrow, .contact .eyebrow, .eyebrow { color: #93aac6; }
+  .role, .bio { color: #b0c0d6; font-size: 17px; }
+  .portrait img { border-radius: 50%; border: 1px solid #52718d; }
+  .actions { margin-top: 24px; gap: 12px; }
+  .pill { border-radius: 5px; font-size: 13px; padding: 8px 16px; }
+  .primary { background: #a5e8ff; color: #102337; }
+  .primary:hover { background: #cdf3ff; color: #102337; }
+  .secondary { border-color: #54718e; color: #c2d9ee; }
+  .secondary:hover { background: #152b3f; }
+  .explore { justify-content: flex-start; margin: 24px 0 0; padding-top: 18px; width: 100%; border-top: 1px solid #293a50; color: #a5b8d0; }
+  .home-section { padding-top: 80px; padding-bottom: 32px; }
+  h2 { color: #e8eef9; font-size: clamp(28px, 3vw, 40px); }
+  .section-link, .text-link { color: #96ddff; }
+  .project-grid, .publication-grid, .post-grid { grid-template-columns: 1fr; gap: 20px; }
+  .homepage :global(.card) { border: 1px solid #2a4059; border-radius: 8px; background: #101b2b; padding: 28px; }
+  .homepage :global(.card h3), .homepage :global(.card h3 a) { color: #e8eef9; }
+  .homepage :global(.card .gradient-text) { color: #e8eef9; -webkit-text-fill-color: #e8eef9; }
+  .homepage :global(article.card h3 a[href]) { color: #e8eef9; -webkit-text-fill-color: #e8eef9; }
+  .homepage :global(.card h3 a:hover) { color: #a5e8ff; }
+  .homepage :global(.desc), .homepage :global(.authors), .homepage :global(.venue) { color: #a0b2ca; }
+  .homepage :global(.tag), .research :global(.tag) { background: #1c3348; color: #9adaf5; }
+  .homepage :global(.links a), .homepage :global(.card a) { color: #9adaf5; }
+  .empty { color: #a0b2ca; }
+  .contact { margin-top: 60px; border-top: 1px solid #293a50; }
+  .contact-note { color: #a0b2ca; }
+  @media (max-width: 768px) {
+    .hero { padding-top: 36px; }
+    .hero-content { grid-template-columns: minmax(0, 1fr) 64px; gap: 14px; }
+    .portrait { width: 64px; align-self: start; margin-top: 40px; }
+    .hero h1 { font-size: clamp(32px, 8vw, 44px); }
+    .role { font-size: 14px; }
+    .hero-text { min-width: 0; }
+    .hero-text .actions { margin-right: -78px; }
+    .home-section { padding-top: 56px; }
   }
 </style>

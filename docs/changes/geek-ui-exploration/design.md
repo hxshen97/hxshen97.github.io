@@ -1,5 +1,15 @@
 # 实施方案
 
+## 第三轮：现代 GPU 动画接入真实首页
+
+选择 Astro 5 + @astrojs/react 4.x（与现有 Astro 5 兼容），React 19 + React Three Fiber 9（官方配对），Three.js 着色器粒子、React Postprocessing 辉光，以及 GSAP/ScrollTrigger 镜头编排。R3F 10 当前仍为 alpha，本轮不以实验性 WebGPU 渲染器作为唯一路径；稳定 WebGL2 已可实现目标视觉。
+
+动画组件延迟加载独立 3D 场景模块，内容、真实头像、CTA 和六模块仍由 Astro 静态输出。粒子在 GPU 顶点着色器中由环面结、轨道、波面三种坐标变形；仅传时间/视角等少量 uniform。Bloom 增强高亮点，GSAP 驱动形态插值和 ScrollTrigger 镜头推进，不强制平滑滚动或阻止浏览器滚动。场景使用 demand 帧调度，只有可见、页面前台、未暂停且非减弱动画时请求下一帧。低端/移动端减少粒子和关闭昂贵后处理；无 WebGL2 或上下文丢失显示 CSS 静态图形，保留阅读和导航。错误边界覆盖场景创建失败。
+
+范围：共享 HomePage 接入动画岛与深色阅读布局，主页侧栏使用专门的深色布局样式，不改变其他六模块的内容管理。新文案全部同步 ui.ts。旧首页入场与正文揭示继续保留原生浏览器动画以维持既有可访问性门禁；GSAP 负责 3D 编排，避免两套工具争夺相同 DOM 属性。
+
+引用：[R3F 版本配对](https://r3f.docs.pmnd.rs/getting-started/introduction)、[Astro React 集成](https://docs.astro.build/en/guides/integrations-guide/react/)、[Bloom](https://react-postprocessing.docs.pmnd.rs/effects/bloom)、[GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)。
+
 ## 第二轮：03 阅读骨架与空间动效
 
 2026-10-15：新增 motion-study.html，独立双语交互原型。延续 frontend-design 指导，主体为左侧固定身份/目录，右侧大幅交互图形与正常纵向阅读。以真实姓名、现有职业文案、一个项目、三篇论文及博客空状态做内容校准，简历链接进入现有生产站；不宣称这份概念覆盖完整简历内容。

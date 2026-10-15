@@ -32,7 +32,7 @@
 
 ## 已有技术栈与目录
 
-- Astro 5、TypeScript、Astro 组件和 CSS；当前没有 React / Vue 等组件框架。
+- Astro 5、TypeScript、Astro 组件和 CSS；试验首页通过 @astrojs/react 4.x 引入 React 19 动画岛，使用 React Three Fiber 9 / Three.js、React Postprocessing 和 GSAP。页面内容与路由仍为 Astro 静态输出。
 - 静态输出：`astro.config.mjs` 使用 `output: 'static'`、`trailingSlash: 'always'`。
 - 内容集合：`src/content.config.ts` 定义 Zod schema；Markdown 存放在 `src/content/`。
 - 数学渲染：`remark-math` 和 `rehype-katex`。
@@ -42,7 +42,8 @@
 | --- | --- |
 | `src/pages/` | 英文页面、动态详情页及 `zh/` 中文镜像路由 |
 | `src/components/` | 侧栏、导航、项目 / 文章 / 学术成果卡片、标签与筛选 |
-| `src/components/HomePage.astro` | 共享双语首页、集合精选规则、Apple 风格分区及入场 / 滚动动画；首页路由为薄入口 |
+| `src/components/HomePage.astro` | 共享双语首页、集合精选规则、试验深色阅读布局及原生入场 / 滚动揭示；首页路由为薄入口 |
+| `src/components/motion/` | 首页独立 GPU 动画岛、形态切换、辉光与镜头联动；延迟加载场景，支持暂停、离屏/后台停止与无 WebGL 回退 |
 | `src/layouts/SidebarLayout.astro` | 共享布局 |
 | `src/i18n/ui.ts` | `en` / `zh` 字典、`t`、`localizedPath`、`langSwitchPaths` |
 | `src/styles/global.css` | 全局样式和主题变量 |
@@ -63,7 +64,7 @@
 6. 不为结构整理引入无必要的依赖或前端框架。依赖变化需说明用途，并同步 `package-lock.json`。
 7. 保持桌面与移动端导航、侧栏展开 / 收起、键盘操作、可见焦点、语义化结构和图片替代文本。
 8. 保留现有简洁视觉方向；`DESIGN.md` 是设计参考。结构重构不自动授权大幅改版，用户新要求优先。
-   首页视觉样式集中在 `HomePage.astro`，新增文案和姓名在双语字典维护；动画应在无 JavaScript 时仍保留可读内容，并遵守 `prefers-reduced-motion`。首页保留无文章时的博客空状态和入口。
+   首页视觉样式集中在 `HomePage.astro`，试验深色布局限定于 `body.motion-theme`，GPU 场景与控制位于 `src/components/motion/`；新增文案和姓名在双语字典维护。场景的 GPU 形态、GSAP 编排与原生正文入场动画分开管理，不争夺同一 DOM 属性。动画应在无 JavaScript / 无 WebGL 时仍保留可读内容，并遵守 `prefers-reduced-motion`，提供暂停，在离屏或后台停止渲染。首页保留无文章时的博客空状态和入口。
 9. 不覆盖用户已有改动。用户已授权需求到 PR 的自动开发：允许创建 `codex/` 分支、提交、推送开发分支和创建 / 更新 PR。未经用户批准当前提交，不得合入或直接推送 `master`；推送 `master` 会触发部署。
 
 ## 双语约束
