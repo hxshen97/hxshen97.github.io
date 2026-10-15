@@ -25,7 +25,7 @@ const { title, description = 'HxS — Software Engineer & Mathematician', lang =
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body>
+  <body class:list={{ 'motion-theme': home }}>
     <Sidebar lang={lang} />
     <main class:list={['main-content', { 'main-home': home }]}>
       <slot />
@@ -50,4 +50,28 @@ const { title, description = 'HxS — Software Engineer & Mathematician', lang =
   }
   .main-home { padding: 48px 0 0; }
 }
+</style>
+
+<style is:global>
+  body.motion-theme { --sidebar-w: clamp(250px, 23vw, 330px); --bg: #080d18; --text: #e8eef9; --accent: #9adaf5; background: #080d18; }
+  .motion-theme .sidebar { background: #080d18; border-color: #24364b; padding: 64px 32px 32px; }
+  .motion-theme .sidebar-top { margin-bottom: 44px; }
+  .motion-theme .sidebar .logo { font-size: clamp(28px, 3vw, 40px); line-height: 1.15; }
+  .motion-theme .sidebar .gradient-text { color: #e8eef9; -webkit-text-fill-color: #e8eef9; }
+  .motion-theme .tagline { color: #9caec7; font-size: 14px; line-height: 1.8; margin-top: 16px; }
+  .motion-theme .sidebar-nav { gap: 13px; }
+  .motion-theme .nav-link { color: #9caec7; padding-left: 0; background: none; }
+  .motion-theme .nav-link::before { content: ''; display: inline-block; width: 18px; height: 1px; margin-right: 12px; background: #526c88; vertical-align: middle; transition: width .25s; }
+  .motion-theme .nav-link.active, .motion-theme .nav-link:hover { color: #e8eef9; background: none; }
+  .motion-theme .nav-link.active::before { width: 36px; background: #9adaf5; }
+  .motion-theme .sidebar-footer { border-color: #24364b; }
+  .motion-theme .sidebar-footer a { color: #9caec7; }
+  .motion-theme .sidebar-footer a.active { color: #9adaf5; }
+  .motion-theme .mobile-header { background: #080d18ed; border-color: #24364b; }
+  .motion-theme .mobile-header .logo { color: #e8eef9; -webkit-text-fill-color: #e8eef9; }
+  .motion-theme .hamburger span { background: #e8eef9; }
+  body.motion-theme .sidebar .sidebar-footer a { color: #9caec7; }
+  body.motion-theme .sidebar .sidebar-footer a.active { color: #9adaf5; }
+  body.motion-theme .mobile-header .hamburger span { background: #e8eef9; }
+  @media (max-width: 768px) { .motion-theme .sidebar { padding: 32px 24px; } }
 </style>

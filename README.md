@@ -1,6 +1,6 @@
 # Personal Portfolio Site
 
-A minimal, Apple-inspired light-themed portfolio site built with **Astro 5**, TypeScript, and scoped CSS. Supports bilingual UI (English / Chinese), blog with LaTeX math, project showcase, publications list, and CV page.
+A bilingual portfolio built with **Astro 5**, TypeScript, and scoped CSS. The experimental homepage uses a dark reading layout and **React 19 + React Three Fiber 9 / Three.js + GSAP** for interactive GPU animation. Blog with LaTeX math, projects, publications, CV, and contact pages retain their content and routes.
 
 ## Quick Start
 
@@ -53,7 +53,11 @@ site: 'https://<your-username>.github.io'
 
 ### Theme Colors
 
-The homepage routes (`src/pages/index.astro` and `src/pages/zh/index.astro`) are thin entries for `HomePage.astro`. Its scoped styles follow `DESIGN.md`: black introduction and contact sections, light project and writing sections, blue actions, and responsive typography. Homepage entrance and scroll reveals use native browser animation with no extra dependency; content stays visible without JavaScript and animations respect `prefers-reduced-motion`. Featured projects (up to 3), publications (up to 2, newest year first), and published posts (up to 4, newest date first) still come from the existing collections. With no posts, the homepage shows an empty state and a working blog link.
+The homepage routes (`src/pages/index.astro` and `src/pages/zh/index.astro`) are thin entries for `HomePage.astro`. This experimental branch keeps the left navigation and a readable content column, with an independent React animation island in `src/components/motion/`. `MotionExperience.tsx` owns controls, visibility, accessibility and the lazy scene import. `GPUScene.tsx` renders GPU shader particles, torus-knot/orbital/wave morphs, desktop Bloom, interaction pulses and GSAP/ScrollTrigger camera motion. The homepage theme is scoped to `body.motion-theme`; the remaining pages keep the existing light theme. `DESIGN.md` records the previous Apple direction; the current experiment is documented in `docs/changes/geek-ui-exploration/`.
+
+The scene pauses offscreen, in a hidden tab, on request, or under `prefers-reduced-motion`. Mobile/low-core devices use fewer particles and no Bloom. Without JavaScript, WebGL2, or a working GPU context, content stays readable and a static graphic is available. This is a visual mathematical illustration, not a plot of research results. A GPU scene adds a lazy bundle of approximately 273 kB gzip, in addition to React and the controls; it is only requested on the homepage when WebGL2 is available. Existing entrance/reveal animations remain native browser animations, separate from the scene timeline.
+
+Featured projects (up to 3), publications (up to 2, newest year first), and published posts (up to 4, newest date first) still come from the existing collections. With no posts, the homepage shows an empty state and a working blog link. All new scene UI strings are maintained in both dictionaries in `src/i18n/ui.ts`.
 
 Edit CSS variables in `src/styles/global.css`:
 
